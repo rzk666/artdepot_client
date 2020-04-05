@@ -1,17 +1,19 @@
 import React from 'react';
 import styles from './test.module.scss';
-import Test from './test';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <Test />
-        <div className={styles.test}>
-          ALLAH
+    <>
+      <div className={styles.test}>
+        {'FREE '}
+        <div style={{ color: 'green' }}>
+          PAL
         </div>
-      </header>
-    </div>
+        <div style={{ color: 'red' }}>
+          STINE
+        </div>
+      </div>
+    </>
   );
 }
 
