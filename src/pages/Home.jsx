@@ -8,14 +8,14 @@ import {
 // Hocs
 import page from '../hocs/page';
 // Controller & View
-import LoginController from '../controllers/LoginController';
-import LoginView from '../views/LoginView';
+import HomeController from '../controllers/HomeController';
+import HomeView from '../views/HomeView';
 // Dictioneries
 import pages from '../universal/pages';
 
 
-const Login = props =>
-  <LoginController {...props} View={LoginView} />;
+const Home = props =>
+  <HomeController {...props} View={HomeView} />;
 
 const mapStateToProps = state => ({
   auth     : state.auth,
@@ -25,4 +25,4 @@ const mapDispatchToProps = dispatch => ({
   login   : data => dispatch(login(data)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(page((Login), pages.LOGIN));
+export default connect(mapStateToProps, mapDispatchToProps)(page((Home), pages.HOME));

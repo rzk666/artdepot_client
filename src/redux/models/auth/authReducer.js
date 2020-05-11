@@ -2,40 +2,44 @@
 import { INITIAL_STATE } from '../../../common/app-const';
 // Action Types
 import {
-  PRODUCTS_IS_LOADING,
-  PRODUCTS_HAS_ERROR,
-  GET_PRODUCTS,
-} from './productsTypes';
+  AUTHLOGIN,
+  AUTH_HAS_ERROR,
+  AUTH_IS_LOADING,
+} from './authTypes';
 
-const products = (state = INITIAL_STATE.products, action) => {
+const auth = (state = INITIAL_STATE.auth, action) => {
   switch (action.type) {
-    case GET_PRODUCTS: {
+    case AUTHLOGIN: {
       const { data } = action.data;
+      const { token, user } = data;
       return {
         ...state,
-        data,
+        token,
+        user,
+        isLoading:false,
+        loggedIn: !!token,
       };
     }
-    case PRODUCTS_IS_LOADING: {
+    case AUTH_IS_LOADING: {
       const { isLoading } = action;
       return {
         ...state,
         isLoading,
       };
     }
-    case PRODUCTS_HAS_ERROR: {
+    case AUTH_HAS_ERROR: {
       if (!action.error) {
         return {
           ...state,
           hasError : action.error,
-          errorCode: -1,
+          error: '',
           isLoading: false,
         };
       }
       return {
         ...state,
         hasError : true,
-        errorCode: `e${action.error}`,
+        error: action.error,
         isLoading: false,
       };
     }
@@ -45,4 +49,4 @@ const products = (state = INITIAL_STATE.products, action) => {
   }
 };
 
-export default products;
+export default auth;
