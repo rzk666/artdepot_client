@@ -1,9 +1,11 @@
 FROM node:12.16.1
 
-WORKDIR ./app
+WORKDIR /
 COPY package.json ./package.json
+COPY ./src ./src
+COPY ./public ./public
 RUN npm install
-COPY ./build ./
+RUN npm run build
 COPY .env.staging .env
 EXPOSE 8080
 
