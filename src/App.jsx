@@ -1,19 +1,14 @@
 import React from 'react';
 import styles from './test.module.scss';
+import './global.scss'
 
 function App() {
   return (
-    <>
-      <div className={styles.test}>
-        {'FREE '}
-        <div style={{ color: 'green' }}>
-          PAL
-        </div>
-        <div style={{ color: 'red' }}>
-          STINE
+      <div style={{width: '100%', height:'100%', display:'flex', alignItems:'center', justifyContent:'center'}}>
+        <div style={{fontSize:"25px", color:"red"}}>
+          {"משפט בדיקה"}
         </div>
       </div>
-    </>
   );
 }
 

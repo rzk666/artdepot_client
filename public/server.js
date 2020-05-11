@@ -3,8 +3,10 @@ require('dotenv/config');
 const app = express();
 
 const { PORT, APP_URL } = process.env;
-app.get('/', (req, res ) => {
-    res.sendFile('./index.html');
-});
 
-app.listen(PORT, () => `Client ready on port ${APP_URL}:${PORT}`);
+app.use('/static', express.static(__dirname + '/static'));
+app.listen(PORT, () => console.log(`Client ready on port ${APP_URL}:${PORT}`));
+
+app.get('/', (req, res ) => {
+    res.sendFile(__dirname + '/index.html');
+});
