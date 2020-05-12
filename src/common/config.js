@@ -3,7 +3,7 @@ module.exports = {
     port       : process.env.PORT,
     env        : process.env.NODE_ENV,
     url        : process.env.URL,
-    locales_url: process.env.LOCALES_URL,
+    cdn        : process.env.CDN
   },
   server: {
     host    : process.env.SERVER_HOST,
