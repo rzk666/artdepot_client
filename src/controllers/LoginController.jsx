@@ -1,8 +1,18 @@
 import React from 'react';
 
-class HomeController extends React.Component {
+class LoginController extends React.Component {
 
   componentDidMount() {
+      const { auth } = this.props;
+      const { isLoggedIn } = auth;
+      console.log(isLoggedIn);
+      if (isLoggedIn) {
+        if (auth.user.role === 'admin'){
+          this.props.history.push('/admin');
+        } else {
+          this.props.history.push('/');
+        }
+      }
   }
   componentDidUpdate() {
   }
@@ -28,4 +38,4 @@ class HomeController extends React.Component {
   }
 }
 
-export default HomeController;
+export default LoginController;

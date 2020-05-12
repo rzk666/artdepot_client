@@ -1,14 +1,18 @@
 import React from 'react';
 import styles from './test.module.scss';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Login from './pages/Login';
+import Home from './pages/Home';
 import './global.scss'
 
 function App() {
   return (
-      <div style={{width: '100%', height:'100%', display:'flex', alignItems:'center', justifyContent:'center'}}>
-        <div style={{fontSize:"25px", color:"red"}}>
-          {"משפט בדיקה"}
-        </div>
-      </div>
+      <Router >
+        <Switch>
+          <Route path="/" exact component={Home}/>
+          <Route path="/login" exact component={Login}/>
+        </Switch>
+      </Router>
   );
 }
 

@@ -5,6 +5,13 @@ export const INITIAL_STATE = {
     errorCode: -1,
     data     : [],
   },
+  auth:{
+    isLoading: false,
+    hasError: false,
+    error: '',
+    isLoggedIn: false,
+    token: ''
+  }
 };
 
 export const test = 5;
