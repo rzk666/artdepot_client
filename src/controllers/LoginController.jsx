@@ -1,5 +1,7 @@
 import React from 'react';
+// common
 import ROUTES from '../universal/routes';
+import FORMS from '../common/form-fields';
 
 // ----- Dictioneries ----- //
 const { ADMIN_ROUTE, HOME_ROUTE } = ROUTES;

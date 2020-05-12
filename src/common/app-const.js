@@ -1,17 +1,17 @@
 export const INITIAL_STATE = {
   products: {
     isLoading: true,
-    hasError : false,
+    hasError: false,
     errorCode: -1,
-    data     : [],
+    data: [],
   },
-  auth:{
+  auth: {
     isLoading: false,
     hasError: false,
     error: '',
     isLoggedIn: false,
-    token: ''
-  }
+    token: '',
+  },
 };
 
 export const test = 5;

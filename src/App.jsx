@@ -1,9 +1,14 @@
 import React from 'react';
+// React Router
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+// Pages
 import Login from './pages/Login';
 import Home from './pages/Home';
 import Admin from './pages/Admin';
+// Global Styles
 import './global.scss';
+// .env config
+require('dotenv').config();
 
 function App() {
   return (

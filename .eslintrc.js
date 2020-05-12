@@ -24,7 +24,6 @@ module.exports = {
   ],
   rules: {
     "react/prop-types": 0,
-    "react/jsx-props-no-spreading": 0,
-    "react/no-underscore-dangle": 0,
+    "react/jsx-props-no-spreading": 0
   },
 };

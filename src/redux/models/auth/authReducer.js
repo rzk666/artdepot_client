@@ -16,7 +16,7 @@ const auth = (state = INITIAL_STATE.auth, action) => {
         ...state,
         token,
         user,
-        isLoading:false,
+        isLoading: false,
         loggedIn: !!token,
       };
     }
@@ -28,18 +28,19 @@ const auth = (state = INITIAL_STATE.auth, action) => {
       };
     }
     case AUTH_HAS_ERROR: {
-      if (!action.error) {
+      const { error } = action;
+      if (!error) {
         return {
           ...state,
-          hasError : action.error,
+          hasError: false,
           error: '',
           isLoading: false,
         };
       }
       return {
         ...state,
-        hasError : true,
-        error: action.error,
+        hasError: true,
+        error,
         isLoading: false,
       };
     }
