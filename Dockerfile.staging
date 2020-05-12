@@ -1,14 +1,10 @@
 FROM node:12.16.1
-# Create app directory
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
-# Install app dependencies
-COPY package.json /usr/src/app/
-COPY package-lock.json /usr/src/app/
-RUN npm install
-# Bundle app source
-COPY . /usr/src/app
-COPY .env.staging /usr/src/app/.env
-RUN npm run build
 
-CMD [ "node", "server.js" ]
+WORKDIR ./app
+COPY package.json ./package.json
+RUN npm install
+COPY ./build ./
+COPY .env.staging .env
+EXPOSE 8080
+
+CMD [ "npm", "run", "startServer" ]
