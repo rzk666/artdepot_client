@@ -4,7 +4,7 @@ import withAuth from './withAuth';
 // HOCs
 const HOCS_MAP = {
   login: [withLayout],
-  home: [withLayout],
+  home: [withAuth, withLayout],
   admin: [withAuth, withLayout],
 };
 

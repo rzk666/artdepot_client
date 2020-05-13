@@ -4,8 +4,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 // Redux Actions
 import {
-  login,
-} from '../redux/models/auth/authActions';
+  addUser,
+} from '../redux/models/admin/adminActions';
 // Hocs
 import page from '../hocs/page';
 // Controller & View
@@ -22,7 +22,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  login: (data) => dispatch(login(data)),
+  addUser: (data) => dispatch(addUser(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(page((Admin), pages.ADMIN));

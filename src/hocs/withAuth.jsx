@@ -4,15 +4,21 @@ import { connect } from 'react-redux';
 // Redux Actions
 import {
   login,
+  signOut,
+  refreshAuth,
 } from '../redux/models/auth/authActions';
 
 // ----- Help Functions ----- //
 const enforceAuth = (controllerProps) => {
-  const { auth, history, location } = controllerProps;
+  const {
+    auth, history, location, signOut, cookies,
+  } = controllerProps;
   const { isLoggedIn } = auth;
   const { pathname } = location;
   // Handle logout
   if (!isLoggedIn) {
+    signOut();
+    cookies.set('auth', '');
     history.push('/login');
     return;
   }
@@ -26,9 +32,16 @@ const enforceAuth = (controllerProps) => {
 export default (ComposedComponent) => {
   class WithAuth extends React.Component {
     componentDidMount() {
-      const { cookies } = this.props;
-      console.log(cookies.get('auth'));
-      enforceAuth(this.props);
+      const { auth, cookies, refreshAuth } = this.props;
+      if (!auth.token) {
+        const cookie = cookies.get('auth');
+        const { token } = cookie;
+        if (token) {
+          refreshAuth(cookie);
+        } else {
+          enforceAuth(this.props);
+        }
+      }
     }
 
     componentDidUpdate(prevProps) {
@@ -54,6 +67,8 @@ export default (ComposedComponent) => {
 
   const mapDispatchToProps = (dispatch) => ({
     login: (data) => dispatch(login(data)),
+    signOut: () => dispatch(signOut()),
+    refreshAuth: (cookie) => dispatch(refreshAuth(cookie)),
   });
 
   return connect(mapStateToProps, mapDispatchToProps)((WithAuth));

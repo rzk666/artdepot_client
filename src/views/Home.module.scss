@@ -5,4 +5,15 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    .temp_container{
+        width:auto;
+        height: 100px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .sign_out_btn{
+        margin-bottom: 25px;
+    }
 }

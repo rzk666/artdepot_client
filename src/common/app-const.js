@@ -12,6 +12,11 @@ export const INITIAL_STATE = {
     isLoggedIn: false,
     token: '',
   },
+  admin: {
+    isLoading: false,
+    hasError: false,
+    error: '',
+  },
 };
 
 export const test = 5;

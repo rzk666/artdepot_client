@@ -12,6 +12,7 @@ module.exports = {
   api: {
     endpoint: process.env.REACT_APP_API_ENDPOINT,
     url: `${process.env.REACT_APP_SERVER_PROTOCOL}://${process.env.REACT_APP_SERVER_HOST}/${process.env.REACT_APP_API_ENDPOINT}`,
+    admin: `${process.env.REACT_APP_SERVER_PROTOCOL}://${process.env.REACT_APP_SERVER_HOST}/${process.env.REACT_APP_API_ENDPOINT}/admin`,
   },
   credentials: {
   },

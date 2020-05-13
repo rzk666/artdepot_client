@@ -6,6 +6,7 @@ import {
   AUTH_HAS_ERROR,
   AUTH_IS_LOADING,
   REFRESH_AUTH,
+  SIGNOUT,
 } from './authTypes';
 
 const auth = (state = INITIAL_STATE.auth, action) => {
@@ -26,6 +27,9 @@ const auth = (state = INITIAL_STATE.auth, action) => {
         isLoading: false,
         isLoggedIn: !!token,
       };
+    }
+    case SIGNOUT: {
+      return { ...INITIAL_STATE.auth };
     }
     case AUTH_IS_LOADING: {
       const { isLoading } = action;

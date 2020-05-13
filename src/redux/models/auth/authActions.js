@@ -5,11 +5,16 @@ import {
   REFRESH_AUTH,
   AUTH_HAS_ERROR,
   AUTHLOGIN,
+  SIGNOUT,
 } from './authTypes';
 // API
 import { API } from '../../api';
 // Additional Imports
 import config from '../../../common/config';
+
+export const signOut = () => ({
+  type: SIGNOUT,
+});
 
 export const authIsLoading = (isLoading) => ({
   type: AUTH_IS_LOADING,

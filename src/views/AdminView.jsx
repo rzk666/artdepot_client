@@ -1,18 +1,23 @@
 import React from 'react';
 // Components
-import Loader from '../components/common/Notifications/Loader';
+import AdminNavbar from '../components/admin/AdminNavbar';
+import AdminCurrentView from '../components/admin/AdminCurrentView';
 // Styles
 import styles from './Admin.module.scss';
 
 // Help Components
 
 const AdminView = ({
-  auth,
+  addUser,
+  signOut,
 }) => {
-  const { isLoading } = auth;
+  const x = 5;
   return (
     <div className={styles.wrapper}>
-      <div>עמוד מנהל</div>
+      <AdminNavbar signOut={signOut} />
+      {/* <AdminCurrentView
+        addUser={addUser}
+      /> */}
     </div>
   );
 };

@@ -7,14 +7,14 @@ class AdminController extends React.Component {
   componentDidUpdate() {
   }
 
-  login(data) {
-    const { login } = this.props;
-    login(data);
+  addUser(data) {
+    const { addUser } = this.props;
+    addUser(data);
   }
 
   callbacks() {
     return {
-      login: this.login.bind(this),
+      addUser: this.addUser.bind(this),
     };
   }
 
