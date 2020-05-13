@@ -1,0 +1,12 @@
+.view_container{
+    width:100%;
+    height:100%;
+    display: flex;
+    .admin_top_row{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        height: 100px;
+        margin-top: 15px;
+    }
+}

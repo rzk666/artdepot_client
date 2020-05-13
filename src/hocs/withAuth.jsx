@@ -35,7 +35,7 @@ export default (ComposedComponent) => {
       const { auth, cookies, refreshAuth } = this.props;
       if (!auth.token) {
         const cookie = cookies.get('auth');
-        const { token } = cookie;
+        const token = cookie && cookie;
         if (token) {
           refreshAuth(cookie);
         } else {

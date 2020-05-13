@@ -59,11 +59,11 @@ class LoginComponent extends React.Component {
   }
 
   render() {
-    console.log(this.state.showErrors);
     const { isLoading } = this.props;
     const { formFieldsRefs, showErrors } = this.state;
     const fields = Object.keys(LOGIN_FIELDS).map((key, i) => (
       <Form.Group
+        className={styles.form_group}
         key={`${key}_${i}`}
       >
         <Form.Label

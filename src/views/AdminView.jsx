@@ -10,14 +10,20 @@ import styles from './Admin.module.scss';
 const AdminView = ({
   addUser,
   signOut,
+  currentDisplay,
+  changeView,
 }) => {
   const x = 5;
   return (
     <div className={styles.wrapper}>
-      <AdminNavbar signOut={signOut} />
-      {/* <AdminCurrentView
+      <AdminNavbar
+        signOut={signOut}
+        changeView={changeView}
+      />
+      <AdminCurrentView
+        currentDisplay={currentDisplay}
         addUser={addUser}
-      /> */}
+      />
     </div>
   );
 };
