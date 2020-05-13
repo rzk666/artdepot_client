@@ -2,6 +2,7 @@
 // Types
 import {
   AUTH_IS_LOADING,
+  REFRESH_AUTH,
   AUTH_HAS_ERROR,
   AUTHLOGIN,
 } from './authTypes';
@@ -9,8 +10,6 @@ import {
 import { API } from '../../api';
 // Additional Imports
 import config from '../../../common/config';
-
-console.log(config);
 
 export const authIsLoading = (isLoading) => ({
   type: AUTH_IS_LOADING,
@@ -24,6 +23,11 @@ export const authHasError = (error) => ({
 
 export const authLogin = (data) => ({
   type: AUTHLOGIN,
+  data,
+});
+
+export const refreshAuth = (data) => ({
+  type: REFRESH_AUTH,
   data,
 });
 

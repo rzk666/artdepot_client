@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react';
+/* eslint-disable no-underscore-dangle */
+import React from 'react';
 // Components
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import classnames from 'classnames';
 import Loader from '../components/common/Notifications/Loader';
 // Styles
 import styles from './Login.module.scss';
@@ -27,7 +29,17 @@ class LoginComponent extends React.Component {
     };
   }
 
-  componentDidUpdate() {
+
+  componentDidUpdate(prevProps) {
+    // Handle failed login attempt
+    this._handleFailedLogin(prevProps);
+  }
+
+  _handleFailedLogin(prevProps) {
+    const { hasError } = this.props;
+    if (!prevProps.hasError && hasError) {
+      this.setState({ showErrors: true });
+    }
   }
 
   handleFieldChange() {
@@ -48,7 +60,8 @@ class LoginComponent extends React.Component {
 
   render() {
     console.log(this.state.showErrors);
-    const { formFieldsRefs } = this.state;
+    const { isLoading } = this.props;
+    const { formFieldsRefs, showErrors } = this.state;
     const fields = Object.keys(LOGIN_FIELDS).map((key, i) => (
       <Form.Group
         key={`${key}_${i}`}
@@ -67,18 +80,23 @@ class LoginComponent extends React.Component {
       </Form.Group>
     ));
     return (
-      <Form>
-        {fields}
-        <div className={styles.loginBtn}>
-          <Button
-            onClick={() => this.handleLogin()}
-            variant="primary"
-          >
-            התחבר
-          </Button>
-        </div>
-
-      </Form>
+      <>
+        <Form>
+          {fields}
+          <div className={classnames(styles.login_btn, { [styles.fade]: showErrors })}>
+            <Button
+              onClick={() => this.handleLogin()}
+              variant="primary"
+            >
+              התחבר
+            </Button>
+          </div>
+        </Form>
+        { isLoading
+        && <Loader />}
+        { showErrors
+          && <div className={styles.errors_container}>הוזנו פרטים שגויים</div>}
+      </>
     );
   }
 }
@@ -88,17 +106,16 @@ const LoginView = ({
   login,
   auth,
 }) => {
-  const { isLoading } = auth;
+  const { isLoading, hasError } = auth;
   return (
     <div className={styles.wrapper}>
       <div className={styles.login_container}>
-        { isLoading ? <Loader />
-          : (
-            <LoginComponent
-              login={login}
-              formFieldsRefs={formFieldsRefs}
-            />
-          )}
+        <LoginComponent
+          hasError={hasError}
+          isLoading={isLoading}
+          login={login}
+          formFieldsRefs={formFieldsRefs}
+        />
       </div>
     </div>
   );

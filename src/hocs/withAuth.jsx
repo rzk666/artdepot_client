@@ -26,7 +26,8 @@ const enforceAuth = (controllerProps) => {
 export default (ComposedComponent) => {
   class WithAuth extends React.Component {
     componentDidMount() {
-      // TODO: Add auth from cookie
+      const { cookies } = this.props;
+      console.log(cookies.get('auth'));
       enforceAuth(this.props);
     }
 

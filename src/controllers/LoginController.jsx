@@ -1,7 +1,7 @@
 import React from 'react';
 // common
 import ROUTES from '../universal/routes';
-import FORMS from '../common/form-fields';
+// Redux Action
 
 // ----- Dictioneries ----- //
 const { ADMIN_ROUTE, HOME_ROUTE } = ROUTES;
@@ -10,9 +10,11 @@ const { ADMIN_ROUTE, HOME_ROUTE } = ROUTES;
 const handleAuthChange = (controllerProps) => {
   const { auth, history } = controllerProps;
   const { isLoggedIn } = auth;
-  const role = (auth.user && auth.user.role);
+  const { user } = auth;
   if (isLoggedIn) {
-    if (role === 'admin') {
+    const { cookies } = controllerProps;
+    cookies.set('auth', auth, { path: '/' });
+    if (user.role === 'admin') {
       history.push(ADMIN_ROUTE);
     } else {
       history.push(HOME_ROUTE);
@@ -22,7 +24,12 @@ const handleAuthChange = (controllerProps) => {
 
 class LoginController extends React.Component {
   componentDidMount() {
-    handleAuthChange(this.props);
+    // handle cookies
+    const { cookies, refreshAuth } = this.props;
+    const cookie = cookies.get('auth');
+    if (cookie.token) {
+      refreshAuth(cookie);
+    }
   }
 
   componentDidUpdate(prevProps) {

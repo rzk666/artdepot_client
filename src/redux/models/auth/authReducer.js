@@ -5,10 +5,17 @@ import {
   AUTHLOGIN,
   AUTH_HAS_ERROR,
   AUTH_IS_LOADING,
+  REFRESH_AUTH,
 } from './authTypes';
 
 const auth = (state = INITIAL_STATE.auth, action) => {
   switch (action.type) {
+    case REFRESH_AUTH: {
+      const { data } = action;
+      return {
+        ...data,
+      };
+    }
     case AUTHLOGIN: {
       const { data } = action.data;
       const { token, user } = data;
@@ -17,7 +24,7 @@ const auth = (state = INITIAL_STATE.auth, action) => {
         token,
         user,
         isLoading: false,
-        loggedIn: !!token,
+        isLoggedIn: !!token,
       };
     }
     case AUTH_IS_LOADING: {
@@ -25,6 +32,8 @@ const auth = (state = INITIAL_STATE.auth, action) => {
       return {
         ...state,
         isLoading,
+        hasError: false,
+        error: '',
       };
     }
     case AUTH_HAS_ERROR: {

@@ -4,8 +4,25 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
     .login_container{
+        position: relative;
         width:400px;
         height:400px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .errors_container{
+        margin-top: 15px;
+        padding: 2px 5px;
+        color: white;
+        background-color: var(--error-box);
+    }
+    .login_btn{
+        text-align: center;
+        &.fade{
+            opacity: 0.5;
+        }
     }
 }

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 // Redux Actions
 import {
   login,
+  refreshAuth,
 } from '../redux/models/auth/authActions';
 // Hocs
 import page from '../hocs/page';
@@ -23,6 +24,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   login: (data) => dispatch(login(data)),
+  refreshAuth: (data) => dispatch(refreshAuth(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(page((Login), pages.LOGIN));
