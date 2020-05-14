@@ -8,8 +8,6 @@ import Admin from './pages/Admin';
 // Global Styles
 import './global.scss';
 
-console.log(process.env);
-
 function App() {
   return (
     <Router>

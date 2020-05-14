@@ -23,8 +23,7 @@ const enforceAuth = (controllerProps) => {
     return;
   }
   const role = (auth.user && auth.user.role);
-  if (role !== 'admin') {
-    pathname.includes('admin');
+  if (role !== 'admin' && pathname.includes('admin')) {
     history.push('/');
   }
 };
@@ -45,8 +44,6 @@ export default (ComposedComponent) => {
     }
 
     componentDidUpdate(prevProps) {
-      alert("I UPDATED")
-      console.log(process.env);
       const { auth } = this.props;
       const { isLoggedIn } = auth;
       if (isLoggedIn !== prevProps.auth.isLoggedIn) {
