@@ -35,7 +35,7 @@ export default (ComposedComponent) => {
       const { auth, cookies, refreshAuth } = this.props;
       if (!auth.token) {
         const cookie = cookies.get('auth');
-        const token = cookie && cookie;
+        const token = cookie && cookie.token;
         if (token) {
           refreshAuth(cookie);
         } else {
@@ -45,6 +45,8 @@ export default (ComposedComponent) => {
     }
 
     componentDidUpdate(prevProps) {
+      alert("I UPDATED")
+      console.log(process.env);
       const { auth } = this.props;
       const { isLoggedIn } = auth;
       if (isLoggedIn !== prevProps.auth.isLoggedIn) {

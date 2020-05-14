@@ -1,18 +1,32 @@
+const APP_PORT = process.env.REACT_APP_PORT || process.env.PORT;
+const APP_URL = process.env.REACT_APP_URL
+|| (process.env.REACT_APP_ENV === 'staging'
+  ? 'creative-hands.co.il'
+  : 'staging.creative-hands.co.il');
+const APP_CDN = process.env.REACT_APP_CDN || 'cdn.address.com';
+
+const SERVER_PROTOCOL = process.env.REACT_APP_SERVER_PROTOCOL || 'http';
+const SERVER_HOST = process.env.REACT_APP_SERVER_HOST
+|| (process.env.NODE_ENV === 'staging'
+  ? 'server.creative-hands.co.il'
+  : 'staging.server.creative-hands.co.il');
+const API_ENDPOINT = 'api';
+
 module.exports = {
   app: {
-    port: process.env.REACT_APP_PORT,
+    port: APP_PORT,
     env: process.env.NODE_ENV,
-    url: process.env.REACT_APP_URL,
-    cdn: process.env.REACT_APP_CDN,
+    url: APP_URL,
+    cdn: APP_CDN,
   },
   server: {
-    host: process.env.REACT_APP_SERVER_HOST,
-    protocol: process.env.REACT_APP_SERVER_PROTOCOL,
+    host: SERVER_HOST,
+    protocol: SERVER_PROTOCOL,
   },
   api: {
-    endpoint: process.env.REACT_APP_API_ENDPOINT,
-    url: `${process.env.REACT_APP_SERVER_PROTOCOL}://${process.env.REACT_APP_SERVER_HOST}/${process.env.REACT_APP_API_ENDPOINT}`,
-    admin: `${process.env.REACT_APP_SERVER_PROTOCOL}://${process.env.REACT_APP_SERVER_HOST}/${process.env.REACT_APP_API_ENDPOINT}/admin`,
+    endpoint: API_ENDPOINT,
+    url: `${SERVER_PROTOCOL}://${SERVER_HOST}/${API_ENDPOINT}`,
+    admin: `${SERVER_PROTOCOL}://${SERVER_HOST}/${API_ENDPOINT}/admin`,
   },
   credentials: {
   },
