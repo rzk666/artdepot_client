@@ -92,7 +92,7 @@ class LoginComponent extends React.Component {
             </Button>
           </div>
         </Form>
-        { true
+        { isLoading
         && <Loader style={{ marginTop: '10px' }} />}
         { showErrors
           && <div className={styles.errors_container}>הוזנו פרטים שגויים</div>}
