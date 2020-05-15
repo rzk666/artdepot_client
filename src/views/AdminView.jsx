@@ -19,6 +19,7 @@ const AdminView = ({
       <AdminNavbar
         signOut={signOut}
         changeView={changeView}
+        currentDisplay={currentDisplay}
       />
       <AdminCurrentView
         currentDisplay={currentDisplay}

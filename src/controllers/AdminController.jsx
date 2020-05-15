@@ -1,8 +1,10 @@
 import React from 'react';
 // Dictioneries
 export const ADMIN_DISPLAYS = {
+  MAIN: 'עמוד ראשי',
   PRODUCTS: 'מוצרים',
   USERS: 'משתמשים',
+  ORDERS: 'הזמנות',
 };
 
 class AdminController extends React.Component {

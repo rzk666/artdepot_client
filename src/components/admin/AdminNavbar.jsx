@@ -3,26 +3,56 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 // Dictioneries
 import { ADMIN_DISPLAYS } from '../../controllers/AdminController';
+// Utils
+import classnames from 'classnames';
 // Styles
 import styles from './AdminNavbar.module.scss';
 
+// ----- Consts ----- //
+const imagePath = '/images';
+const iconPath = `${imagePath}/icons`;
+
 // Help Components
+const NavButton = ({ onClick, isActive, children }) => {
+  console.log(children);
+  return (
+    <div
+      className={classnames(styles.nav_button, { [styles.isActive]: isActive })}
+      onClick={() => onClick()}
+    >
+      <img
+        src={`${iconPath}/${children}.svg`}
+        alt=""
+        className={styles.image}
+      />
+      {children}
+    </div>
+  );
+};
 
 const AdminNavbar = ({
   signOut,
   changeView,
+  currentDisplay,
 }) => {
   const MenuButtons = Object.keys(ADMIN_DISPLAYS).map((display) => (
-    <Button
-      variant="info"
-      className={styles.nav_button}
+    <NavButton
+      key={`${display}_key`}
       onClick={() => changeView(display)}
+      isActive={currentDisplay === ADMIN_DISPLAYS[display]}
     >
       {ADMIN_DISPLAYS[display]}
-    </Button>
+    </NavButton>
   ));
   return (
     <div className={styles.nav_container}>
+      <div className={styles.logo_container}>
+        <img
+          src="/images/logo.png"
+          alt="Admin Logo"
+          className={styles.image}
+        />
+      </div>
       <div className={styles.buttons_container}>
         {MenuButtons}
       </div>
