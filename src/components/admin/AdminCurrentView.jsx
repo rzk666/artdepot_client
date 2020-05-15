@@ -1,21 +1,17 @@
 import React from 'react';
+// Components
+import ProductsAdminView from './adminViews/ProductsAdminView';
+import UsersAdminView from './adminViews/UsersAdminView';
+import MainAdminView from './adminViews/MainAdminView';
+import OrdersAdminView from './adminViews/OrdersAdminView';
+
 // Styles
 import styles from './AdminCurrentView.module.scss';
 // Dictioneries
 import { ADMIN_DISPLAYS } from '../../controllers/AdminController';
 
-const ProductsAdminView = () => <div />;
-const UsersAdminView = ({ addUser }) => {
-  const x = 5;
-  return (
-    <div className={styles.admin_top_row}>
-      {ADMIN_DISPLAYS.USERS}
-    </div>
-  );
-};
-
 // ----- Help Function ----- //
-const getDisplayComponent = (currentDisplay, addUser) => {
+const getDisplayComponent = (currentDisplay, addUser, changeView) => {
   let displayComponent;
   switch (currentDisplay) {
     case ADMIN_DISPLAYS.PRODUCTS:
@@ -23,6 +19,17 @@ const getDisplayComponent = (currentDisplay, addUser) => {
       break;
     case ADMIN_DISPLAYS.USERS:
       displayComponent = <UsersAdminView addUser={addUser} />;
+      break;
+    case ADMIN_DISPLAYS.MAIN:
+      displayComponent = (
+        <MainAdminView
+          title={currentDisplay}
+          changeView={changeView}
+        />
+      );
+      break;
+    case ADMIN_DISPLAYS.ORDERS:
+      displayComponent = <OrdersAdminView addUser={addUser} />;
       break;
     default:
       break;
@@ -33,9 +40,10 @@ const getDisplayComponent = (currentDisplay, addUser) => {
 const AdminCurrentView = ({
   addUser,
   currentDisplay,
+  changeView,
 }) => (
   <div className={styles.view_container}>
-    {getDisplayComponent(currentDisplay, addUser)}
+    {getDisplayComponent(currentDisplay, addUser, changeView)}
   </div>
 );
 

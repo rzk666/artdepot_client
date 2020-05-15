@@ -1,0 +1,95 @@
+.wrapper{
+    height: 100%;
+    width: 100%;
+    .main_container{
+        background-color: var(--admin-bg-purple);
+        height: 350px;
+        width:100%;
+        display: flex;
+        flex-direction: column;
+        padding: 25px;
+        .title{
+            text-align: right;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 90px;
+        }
+        .buttons{
+            width:100%;
+            height:auto;
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+            justify-content: space-evenly;
+            .button_container{
+                transition: box-shadow 0.25s ease-in;
+                height: 120px;
+                width: 240px;
+                background-color: white;
+                border-radius: 2px;
+                display: flex;
+                flex-direction: column;
+                padding: 16px 24px;
+                position: relative;
+                &:active {
+                    background-color: var(--admin-bg-purple);
+                    top:3px;
+                    .orders_title {
+                        p{
+                            color:white;
+                        }
+                    }
+                    .regular{
+                        .title{
+                            color:white;
+                        }
+                    }
+                }
+                &:hover{
+                    cursor: pointer;
+                    box-shadow: 10px 10px 24px 2px;
+                }
+                .orders_title{
+                    display: flex;
+                    height: 50px;
+                    align-items: center;
+                    .image{
+                        height:48px;
+                        margin-left: 15px;
+                    }
+                    p{
+                        color: var(--admin-text);
+                        font-size: 18px;
+                        font-weight: 500;
+                        margin: 0;
+                    }
+                }
+                .orders_open{
+                    margin-top: auto;
+                    width: 100%;
+                    text-align: center;
+                }
+                .regular{
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    .title{
+                        margin:0;
+                        color: var(--admin-text);
+                        font-size: 16px;
+                        font-weight: 500;
+                    }
+                    .image {
+                        height: 48px;
+                        margin-left: 15px;
+                    }
+                }
+            }
+        }
+    }
+    .graphs_container{
+
+    }
+}

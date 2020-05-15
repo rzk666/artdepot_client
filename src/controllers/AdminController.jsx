@@ -11,7 +11,7 @@ class AdminController extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentDisplay: ADMIN_DISPLAYS.USERS,
+      currentDisplay: ADMIN_DISPLAYS.MAIN,
     };
   }
 

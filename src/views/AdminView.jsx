@@ -22,6 +22,7 @@ const AdminView = ({
         currentDisplay={currentDisplay}
       />
       <AdminCurrentView
+        changeView={changeView}
         currentDisplay={currentDisplay}
         addUser={addUser}
       />

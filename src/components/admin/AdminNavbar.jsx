@@ -5,30 +5,28 @@ import Button from 'react-bootstrap/Button';
 import { ADMIN_DISPLAYS } from '../../controllers/AdminController';
 // Utils
 import classnames from 'classnames';
+// Libs
+import { app } from '../../common/config';
 // Styles
 import styles from './AdminNavbar.module.scss';
 
 // ----- Consts ----- //
-const imagePath = '/images';
-const iconPath = `${imagePath}/icons`;
+const { cdn } = app;
 
 // Help Components
-const NavButton = ({ onClick, isActive, children }) => {
-  console.log(children);
-  return (
-    <div
-      className={classnames(styles.nav_button, { [styles.isActive]: isActive })}
-      onClick={() => onClick()}
-    >
-      <img
-        src={`${iconPath}/${children}.svg`}
-        alt=""
-        className={styles.image}
-      />
-      {children}
-    </div>
-  );
-};
+const NavButton = ({ onClick, isActive, children }) => (
+  <div
+    className={classnames(styles.nav_button, { [styles.isActive]: isActive })}
+    onClick={() => onClick()}
+  >
+    <img
+      src={`${cdn}/${children}.svg`}
+      alt=""
+      className={styles.image}
+    />
+    {children}
+  </div>
+);
 
 const AdminNavbar = ({
   signOut,
@@ -48,7 +46,7 @@ const AdminNavbar = ({
     <div className={styles.nav_container}>
       <div className={styles.logo_container}>
         <img
-          src="/images/logo.png"
+          src={`${cdn}/logo.png`}
           alt="Admin Logo"
           className={styles.image}
         />
