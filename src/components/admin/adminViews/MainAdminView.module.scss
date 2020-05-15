@@ -90,6 +90,8 @@
         }
     }
     .graphs_container{
-
+        position: relative;
+        display: flex;
+        height: calc(100% - 350px);
     }
 }

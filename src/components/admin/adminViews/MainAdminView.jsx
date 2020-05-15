@@ -1,10 +1,12 @@
 import React from 'react';
-// styles
+// Styles
 import styles from './MainAdminView.module.scss';
 // Dictioneries
 import { ADMIN_DISPLAYS } from '../../../controllers/AdminController';
 // Libs
 import { app } from '../../../common/config';
+// Components
+import BarChart from '../../common/BarChart';
 
 // ----- Consts ----- //
 const buttons = Object.keys(ADMIN_DISPLAYS).filter((x) => x !== 'MAIN');
@@ -63,6 +65,10 @@ const MainAdminView = ({ title, changeView }) => {
         <div className={styles.buttons}>
           {buttons.map((btn) => <Button onClick={changeView} type={btn} />)}
         </div>
+      </div>
+      <div className={styles.graphs_container}>
+        <BarChart />
+        <BarChart />
       </div>
     </div>
   );
