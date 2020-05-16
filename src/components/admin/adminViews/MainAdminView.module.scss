@@ -89,9 +89,16 @@
             }
         }
     }
-    .graphs_container{
+    .info_container{
         position: relative;
         display: flex;
         height: calc(100% - 350px);
+        .chart_container{
+            width: 100%;
+            padding: 16px 24px;
+        }
+        .data_container{
+            width: 500px;
+        }
     }
 }

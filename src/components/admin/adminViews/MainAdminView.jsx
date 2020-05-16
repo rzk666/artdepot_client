@@ -66,9 +66,14 @@ const MainAdminView = ({ title, changeView }) => {
           {buttons.map((btn) => <Button onClick={changeView} type={btn} />)}
         </div>
       </div>
-      <div className={styles.graphs_container}>
-        <BarChart />
-        <BarChart />
+      <div className={styles.info_container}>
+        <div className={styles.chart_container}>
+
+          <BarChart />
+        </div>
+        <div className={styles.data_container}>
+
+        </div>
       </div>
     </div>
   );

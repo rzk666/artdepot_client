@@ -51,8 +51,17 @@ export default class BarChart extends Component {
         datasets: [
           {
             label: 'הזמנות',
+            yAxisId: 'הזמנות',
             data: data.map((el) => el.value),
-            backgroundColor: '#5E72E4',
+            backgroundColor: '#00897E',
+            maxBarThickness: '25',
+          },
+          {
+            label: 'הכנסות',
+            yAxisID: 'הכנסות',
+            data: data.map((el) => el.value * Math.floor(Math.random() * 5000) + 2000),
+            backgroundColor: '#263137',
+            maxBarThickness: '25',
           },
         ],
       },
@@ -62,6 +71,17 @@ export default class BarChart extends Component {
           callbacks: {
             title: (tooltipItem) => `${tooltipItem[0].label} ${data[tooltipItem[0].index].year}`,
           },
+        },
+        scales: {
+          yAxes: [{
+            id: 'הזמנות',
+            type: 'linear',
+            position: 'left',
+          }, {
+            id: 'הכנסות',
+            type: 'linear',
+            position: 'right',
+          }],
         },
       },
     });
@@ -79,7 +99,9 @@ export default class BarChart extends Component {
           הזמנות
         </div>
         <canvas
-          className={styles.chart}
+          style={{
+            width: '100%', height: '480px', textAlign: 'right', color: 'white',
+          }}
           id="myChart"
           ref={this.chartRef}
         />
