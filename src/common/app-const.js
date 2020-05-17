@@ -17,6 +17,10 @@ export const INITIAL_STATE = {
     hasError: false,
     error: '',
   },
+  misc: {
+    screenHeight: 1,
+    screenWidth: 1,
+  },
 };
 
 export const MONTHS = [

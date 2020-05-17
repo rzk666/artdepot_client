@@ -54,8 +54,9 @@ const Button = ({ type, onClick }) => {
   );
 };
 
-const MainAdminView = ({ title, changeView }) => {
-  const x = 5;
+const MainAdminView = ({ title, changeView, misc }) => {
+  console.log(misc);
+  const { screenHeight, screenWidth } = {};
   return (
     <div className={styles.wrapper}>
       <div className={styles.main_container}>
@@ -69,11 +70,9 @@ const MainAdminView = ({ title, changeView }) => {
       <div className={styles.info_container}>
         <div className={styles.chart_container}>
 
-          <BarChart />
+          <BarChart dimensions={{ screenHeight, screenWidth }} />
         </div>
-        <div className={styles.data_container}>
-
-        </div>
+        <div className={styles.data_container} />
       </div>
     </div>
   );

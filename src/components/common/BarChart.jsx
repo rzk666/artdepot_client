@@ -90,6 +90,8 @@ export default class BarChart extends Component {
 
   render() {
     const { options, series } = this.state;
+    const { dimensions } = this.props;
+    const { screenWidth, screenHeight} = dimensions;
     return (
       <div className={styles.container}>
         <div className={styles.header}>

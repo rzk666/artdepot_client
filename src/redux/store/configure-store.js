@@ -24,6 +24,7 @@ if (!NodeService.isProduction()) {
 }
 
 // noinspection JSCheckFunctionSignatures
+console.log(INITIAL_STATE);
 const store = (initialState = INITIAL_STATE) => (
   createStore(
     rootReducer,
