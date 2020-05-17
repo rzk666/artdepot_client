@@ -1,7 +1,7 @@
 /* eslint-disable no-new */
 import React, { Component } from 'react';
 // Components
-import Chart from 'chart.js';
+import Chart from 'react-apexcharts';
 // Libs
 import { app } from '../../common/config';
 import { MONTHS } from '../../common/app-const';
@@ -29,65 +29,67 @@ const pastYear = () => {
 export default class BarChart extends Component {
   constructor(props) {
     super(props);
-    this.chartRef = React.createRef();
     this.state = {
-      dates: pastYear(),
-      data: pastYear().map((date) => ({
-        name: date.month,
-        value: Math.floor(Math.random() * 30) + 1,
-        year: date.year,
-      })),
+      options: {
+        chart: {
+          toolbar: {
+            show: false,
+          },
+        },
+        xaxis: {
+        },
+        colors: ['#ffffff'],
+        dataLabels: {
+          enabled: false,
+        },
+        grid: {
+          show: true,
+          borderColor: '#ffffff',
+          strokeDashArray: 0,
+          position: 'back',
+          xaxis: {
+            lines: {
+              show: false,
+            },
+          },
+          yaxis: {
+            lines: {
+              show: true,
+            },
+          },
+          row: {
+            colors: undefined,
+            opacity: 0.5,
+          },
+          column: {
+            colors: undefined,
+            opacity: 0.5,
+          },
+          padding: {
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0,
+          },
+        },
+
+        labels: pastYear().map((el) => el.month),
+      },
+      series: [
+        {
+          name: 'sales',
+          data: [1, 2, 3, 1, 14, 6, 3, 11, 2, 12, 31, 57],
+        },
+      ],
     };
   }
 
   componentDidMount() {
     const { dates, data } = this.state;
-    const myChartRef = this.chartRef.current.getContext('2d');
-
-    new Chart(myChartRef, {
-      type: 'bar',
-      data: {
-        labels: dates.map((date) => date.month),
-        datasets: [
-          {
-            label: 'הזמנות',
-            yAxisId: 'הזמנות',
-            data: data.map((el) => el.value),
-            backgroundColor: '#00897E',
-            maxBarThickness: '25',
-          },
-          {
-            label: 'הכנסות',
-            yAxisID: 'הכנסות',
-            data: data.map((el) => el.value * Math.floor(Math.random() * 5000) + 2000),
-            backgroundColor: '#263137',
-            maxBarThickness: '25',
-          },
-        ],
-      },
-      options: {
-        tooltips: {
-          enabled: true,
-          callbacks: {
-            title: (tooltipItem) => `${tooltipItem[0].label} ${data[tooltipItem[0].index].year}`,
-          },
-        },
-        scales: {
-          yAxes: [{
-            id: 'הזמנות',
-            type: 'linear',
-            position: 'left',
-          }, {
-            id: 'הכנסות',
-            type: 'linear',
-            position: 'right',
-          }],
-        },
-      },
-    });
   }
 
   render() {
+    const { options, series } = this.state;
     return (
       <div className={styles.container}>
         <div className={styles.header}>
@@ -98,13 +100,13 @@ export default class BarChart extends Component {
           />
           הזמנות
         </div>
-        <canvas
-          style={{
-            width: '100%', height: '480px', textAlign: 'right', color: 'white',
-          }}
-          id="myChart"
-          ref={this.chartRef}
-        />
+        <div className={styles.chart_container}>
+          <Chart
+            options={options}
+            series={series}
+            type="bar"
+          />
+        </div>
       </div>
     );
   }

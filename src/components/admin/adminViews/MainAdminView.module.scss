@@ -91,8 +91,10 @@
     }
     .info_container{
         position: relative;
+        top:-50px;
+        width:100%;
         display: flex;
-        height: calc(100% - 350px);
+        height: auto;
         .chart_container{
             width: 100%;
             padding: 16px 24px;
