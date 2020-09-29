@@ -14,7 +14,6 @@ const AdminView = ({
   changeView,
   misc,
 }) => {
-  console.log(misc);
   const x = 5;
   return (
     <div className={styles.wrapper}>

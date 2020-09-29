@@ -10,7 +10,6 @@ export default (ComposedComponent) => {
     }
 
     render() {
-      console.log(this.state);
       return (
         <>
           <ComposedComponent {...this.props} />
@@ -20,7 +19,6 @@ export default (ComposedComponent) => {
   }
 
   const mapStateToProps = (state) => {
-    console.log(state);
     return {
       misc: state.misc,
     };

@@ -1,15 +1,13 @@
 /* eslint-disable no-new */
 import React, { Component } from 'react';
+// Images
+import OrdersIcons from '../../static/images/icons/הזמנות.svg';
 // Components
 import Chart from 'react-apexcharts';
 // Libs
-import { app } from '../../common/config';
 import { MONTHS } from '../../common/app-const';
 // Styles
 import styles from './BarChart.module.scss';
-
-// ----- Consts ----- //
-const { cdn } = app;
 
 // ----- Help Functions ----- //
 const pastYear = () => {
@@ -21,7 +19,8 @@ const pastYear = () => {
 
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
-    dates.push({ month: MONTHS[month], year });
+    const monthName = MONTHS[month].length > 3 ? `${MONTHS[month].slice(0, 3)}'` : MONTHS[month];
+    dates.push({ month: monthName, year });
   }
   return dates.reverse();
 };
@@ -29,16 +28,46 @@ const pastYear = () => {
 export default class BarChart extends Component {
   constructor(props) {
     super(props);
+    this.containerRef = React.createRef();
     this.state = {
       options: {
         chart: {
+          animations: {
+            enabled: true,
+            easing: 'easeinout',
+            speed: 200,
+            animateGradually: {
+              enabled: true,
+              delay: 100,
+            },
+            dynamicAnimation: {
+              enabled: true,
+              speed: 150,
+            },
+          },
+          foreColor: '#FFFFFF',
           toolbar: {
             show: false,
           },
         },
         xaxis: {
+          labels: {
+            style: {
+              fontSize: '16px',
+            },
+          },
         },
-        colors: ['#ffffff'],
+        yaxis: {
+          labels: {
+            style: {
+              fontSize: '16px',
+            },
+          },
+        },
+        tooltip: {
+          theme: 'dark',
+        },
+        colors: ['#d1435b', '#5E72E4', '#FFFFFF'],
         dataLabels: {
           enabled: false,
         },
@@ -69,7 +98,7 @@ export default class BarChart extends Component {
             top: 0,
             right: 0,
             bottom: 0,
-            left: 0,
+            left: 35,
           },
         },
 
@@ -77,8 +106,16 @@ export default class BarChart extends Component {
       },
       series: [
         {
-          name: 'sales',
-          data: [1, 2, 3, 1, 14, 6, 3, 11, 2, 12, 31, 57],
+          name: 'הזמנות',
+          data: [1, 2, 3, 1, 7, 6, 3, 2, 2, 3, 1, 7],
+        },
+        {
+          name: 'התחברויות',
+          data: [12, 4, 8, 3, 15, 25, 13, 18, 14, 11, 8, 25],
+        },
+        {
+          name: 'שווי (אלף ש"ח)',
+          data: [11, 4, 2, 3, 12, 8, 14, 21, 8, 2, 1, 6],
         },
       ],
     };
@@ -90,20 +127,22 @@ export default class BarChart extends Component {
 
   render() {
     const { options, series } = this.state;
-    const { dimensions } = this.props;
-    const { screenWidth, screenHeight} = dimensions;
+    const current = this.containerRef.current || { clientWidth: 0, clientheight: 0 };
+
     return (
       <div className={styles.container}>
         <div className={styles.header}>
           <img
-            src={`${cdn}/הזמנות.svg`}
+            src={OrdersIcons}
             alt="ChartIcon"
             className={styles.image}
           />
           הזמנות
         </div>
-        <div className={styles.chart_container}>
+        <div ref={this.containerRef} className={styles.chart_container}>
           <Chart
+            width={`${current.clientWidth - 15}px`}
+            height={`${current.clientHeight - 15}px`}
             options={options}
             series={series}
             type="bar"
