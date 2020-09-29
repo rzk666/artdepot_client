@@ -7,8 +7,6 @@ import Home from './pages/Home';
 import Admin from './pages/Admin';
 // Global Styles
 import './global.scss';
-// .env config
-require('dotenv').config();
 
 function App() {
   return (

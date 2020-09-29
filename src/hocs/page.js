@@ -2,12 +2,14 @@ import { compose } from 'redux';
 // Global HOCs
 import { withRouter } from 'react-router-dom';
 import { withCookies } from 'react-cookie';
+import WithMisc from './WithMisc';
 // HOCs mapping
 import HOCS_MAP from './hocsMap';
 
 // TODO -> Also handle environments dynamicly (server\client only HOCs)
 
 const globalHocs = compose(
+  WithMisc,
   withCookies,
   withRouter,
 );

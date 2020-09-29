@@ -1,10 +1,18 @@
 import React from 'react';
+// Dictioneries
+export const ADMIN_DISPLAYS = {
+  MAIN: 'עמוד ראשי',
+  PRODUCTS: 'מוצרים',
+  USERS: 'משתמשים',
+  ORDERS: 'הזמנות',
+};
 
 class AdminController extends React.Component {
-  componentDidMount() {
-  }
-
-  componentDidUpdate() {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentDisplay: ADMIN_DISPLAYS.MAIN,
+    };
   }
 
   addUser(data) {
@@ -12,9 +20,14 @@ class AdminController extends React.Component {
     addUser(data);
   }
 
+  changeView(view) {
+    this.setState({ currentDisplay: ADMIN_DISPLAYS[view] });
+  }
+
   callbacks() {
     return {
       addUser: this.addUser.bind(this),
+      changeView: this.changeView.bind(this),
     };
   }
 

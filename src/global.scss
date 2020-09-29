@@ -1,25 +1,39 @@
+html{
+    height:100%;
+    width:100%;
+}
 :root{
     --error-box: #d1435b;
-    html{
-        height:100vh;
-        width:100vw;
+    --admin-text: #6D6D6D;
+    --admin-bg-purple: #5E72E4;
+    --admin-bg-gray: #F1F3F9;
+    --card-shadow: 0 0 2rem 0 rgba(0,0,0,.15);
+    body,html {
+        width:100%;
+        height:100%;
     }
-    body{
-        height: 100vh;
-        width: 100vw;
+    * {
+        box-sizing: border-box;
+    }
+    body {
+        margin: 0;
+        padding: 0;
     }
     #root{
-        height: 100vh;
-        width: 100vw;
+        height: 100%;
     }
     .container-fluid{
         padding:0;
-        height:100vh;
-        width:100vw;
+        margin:0;
+        height:100%;
     }
     .login-btn{
         width: 60%;
         font-size: 20px;
+    }
+    .apexcharts-legend-marker {
+        margin-right:0;
+        margin-left: 5px;
     }
 }
 @import '~bootstrap/scss/bootstrap.scss';

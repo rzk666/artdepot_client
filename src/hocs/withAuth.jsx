@@ -23,8 +23,8 @@ const enforceAuth = (controllerProps) => {
     return;
   }
   const role = (auth.user && auth.user.role);
-  if (role !== 'admin') {
-    pathname.includes('admin');
+  // Redirect from admin page to homepage if not logged in
+  if (role !== 'admin' && pathname.includes('admin')) {
     history.push('/');
   }
 };
@@ -35,7 +35,7 @@ export default (ComposedComponent) => {
       const { auth, cookies, refreshAuth } = this.props;
       if (!auth.token) {
         const cookie = cookies.get('auth');
-        const { token } = cookie;
+        const token = cookie && cookie.token;
         if (token) {
           refreshAuth(cookie);
         } else {

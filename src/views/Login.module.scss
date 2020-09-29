@@ -5,6 +5,9 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    .form_group{
+        text-align: right;
+    }
     .login_container{
         position: relative;
         width:400px;
