@@ -3,9 +3,14 @@ import React from 'react';
 import Spinner from 'react-bootstrap/Spinner';
 
 // Help Components
-const Loader = () => (
-    <Spinner animation="border" variant="primary" />
-    )
+const Loader = ({ style }) => (
+  <div style={style || {}}>
+    <Spinner
+      animation="border"
+      variant="primary"
+    />
+  </div>
+);
 
 
 export default Loader;

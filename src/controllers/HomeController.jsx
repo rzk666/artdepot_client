@@ -1,15 +1,15 @@
 import React from 'react';
 
 class HomeController extends React.Component {
-
   componentDidMount() {
   }
+
   componentDidUpdate() {
   }
 
   login(data) {
-      const { login } = this.props;
-      login(data);
+    const { login } = this.props;
+    login(data);
   }
 
   callbacks() {
@@ -20,11 +20,13 @@ class HomeController extends React.Component {
 
   render() {
     const { View } = this.props;
-    return (<View
-      {...this.props}
-      {...this.state}
-      {...this.callbacks()}
-    />);
+    return (
+      <View
+        {...this.props}
+        {...this.state}
+        {...this.callbacks()}
+      />
+    );
   }
 }
 

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 // Redux Actions
 import {
   login,
-} from '../redux/models/auth/authActions'
+} from '../redux/models/auth/authActions';
 // Hocs
 import page from '../hocs/page';
 // Controller & View
@@ -14,15 +14,14 @@ import HomeView from '../views/HomeView';
 import pages from '../universal/pages';
 
 
-const Home = props =>
-  <HomeController {...props} View={HomeView} />;
+const Home = (props) => <HomeController {...props} View={HomeView} />;
 
-const mapStateToProps = state => ({
-  auth     : state.auth,
+const mapStateToProps = (state) => ({
+  auth: state.auth,
 });
 
-const mapDispatchToProps = dispatch => ({
-  login   : data => dispatch(login(data)),
+const mapDispatchToProps = (dispatch) => ({
+  login: (data) => dispatch(login(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(page((Home), pages.HOME));

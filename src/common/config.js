@@ -1,17 +1,22 @@
+const SERVER_PROTOCOL = process.env.REACT_APP_SERVER_PROTOCOL;
+const SERVER_HOST = process.env.REACT_APP_SERVER_HOST;
+const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
+
 module.exports = {
   app: {
-    port       : process.env.PORT,
-    env        : process.env.NODE_ENV,
-    url        : process.env.URL,
-    cdn        : process.env.CDN
+    port: process.env.REACT_APP_PORT,
+    env: process.env.NODE_ENV,
+    url: process.env.REACT_APP_URL,
+    cdn: process.env.REACT_APP_CDN,
   },
   server: {
-    host    : process.env.SERVER_HOST,
-    protocol: process.env.SERVER_PROTOCOL,
+    host: SERVER_HOST,
+    protocol: SERVER_PROTOCOL,
   },
   api: {
-    endpoint: process.env.API_ENDPOINT,
-    url     : `${process.env.SERVER_PROTOCOL}://${process.env.SERVER_HOST}/${process.env.API_ENDPOINT}`,
+    endpoint: process.env.REACT_APP_API_ENDPOINT,
+    url: `${SERVER_PROTOCOL}://${SERVER_HOST}/${API_ENDPOINT}`,
+    admin: `${SERVER_PROTOCOL}://${SERVER_HOST}/${API_ENDPOINT}/admin`,
   },
   credentials: {
   },

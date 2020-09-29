@@ -1,0 +1,13 @@
+.view_container{
+    height:100%;
+    display: flex;
+    flex: 1 1 0px;
+    background-color: var(--admin-bg-gray);
+    .admin_top_row{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        height: 100px;
+        margin-top: 15px;
+    }
+}
