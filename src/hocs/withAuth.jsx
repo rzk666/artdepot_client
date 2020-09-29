@@ -23,6 +23,7 @@ const enforceAuth = (controllerProps) => {
     return;
   }
   const role = (auth.user && auth.user.role);
+  // Redirect from admin page to homepage if not logged in
   if (role !== 'admin' && pathname.includes('admin')) {
     history.push('/');
   }

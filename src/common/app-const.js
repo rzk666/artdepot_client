@@ -17,6 +17,10 @@ export const INITIAL_STATE = {
     hasError: false,
     error: '',
   },
+  misc: {
+    screenHeight: 1,
+    screenWidth: 1,
+  },
 };
 
 export const MONTHS = [
@@ -32,4 +36,14 @@ export const MONTHS = [
   'אוקטובר',
   'נובמבר',
   'דצמבר',
+];
+
+export const DAYS = [
+  'ראשון',
+  'שני',
+  'שלישי',
+  'רביעי',
+  'חמישי',
+  'שישי',
+  'שבת',
 ];

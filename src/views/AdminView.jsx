@@ -12,11 +12,13 @@ const AdminView = ({
   signOut,
   currentDisplay,
   changeView,
+  misc,
 }) => {
   const x = 5;
   return (
     <div className={styles.wrapper}>
       <AdminNavbar
+        misc={misc}
         signOut={signOut}
         changeView={changeView}
         currentDisplay={currentDisplay}
@@ -25,6 +27,7 @@ const AdminView = ({
         changeView={changeView}
         currentDisplay={currentDisplay}
         addUser={addUser}
+        misc={misc}
       />
     </div>
   );

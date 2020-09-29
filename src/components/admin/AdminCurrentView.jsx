@@ -11,25 +11,25 @@ import styles from './AdminCurrentView.module.scss';
 import { ADMIN_DISPLAYS } from '../../controllers/AdminController';
 
 // ----- Help Function ----- //
-const getDisplayComponent = (currentDisplay, addUser, changeView) => {
+const getDisplayComponent = (props) => {
   let displayComponent;
+  const { currentDisplay } = props;
   switch (currentDisplay) {
     case ADMIN_DISPLAYS.PRODUCTS:
-      displayComponent = <ProductsAdminView />;
+      displayComponent = <ProductsAdminView {...props} />;
       break;
     case ADMIN_DISPLAYS.USERS:
-      displayComponent = <UsersAdminView addUser={addUser} />;
+      displayComponent = <UsersAdminView {...props} />;
       break;
     case ADMIN_DISPLAYS.MAIN:
       displayComponent = (
         <MainAdminView
-          title={currentDisplay}
-          changeView={changeView}
+          {...props}
         />
       );
       break;
     case ADMIN_DISPLAYS.ORDERS:
-      displayComponent = <OrdersAdminView addUser={addUser} />;
+      displayComponent = <OrdersAdminView {...props} />;
       break;
     default:
       break;
@@ -37,13 +37,9 @@ const getDisplayComponent = (currentDisplay, addUser, changeView) => {
   return displayComponent;
 };
 
-const AdminCurrentView = ({
-  addUser,
-  currentDisplay,
-  changeView,
-}) => (
+const AdminCurrentView = (props) => (
   <div className={styles.view_container}>
-    {getDisplayComponent(currentDisplay, addUser, changeView)}
+    {getDisplayComponent(props)}
   </div>
 );
 
