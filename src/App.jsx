@@ -1,14 +1,22 @@
 import React from 'react';
-import styles from './test.module.scss';
-import './global.scss'
+// React Router
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+// Pages
+import Login from './pages/Login';
+import Home from './pages/Home';
+import Admin from './pages/Admin';
+// Global Styles
+import './global.scss';
 
 function App() {
   return (
-      <div style={{width: '100%', height:'100%', display:'flex', alignItems:'center', justifyContent:'center'}}>
-        <div style={{fontSize:"25px", color:"red"}}>
-          {"משפט בדיקה"}
-        </div>
-      </div>
+    <Router>
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/login" exact component={Login} />
+        <Route path="/admin" exact component={Admin} />
+      </Switch>
+    </Router>
   );
 }
 

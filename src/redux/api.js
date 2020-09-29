@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 // imports
 import HttpRequest from '../util/HttpRequest';
 
@@ -27,5 +28,5 @@ export const httpRequestAction = (action, dispatch, token) => {
   return new HttpRequest(token)(options)
     .then((response) => dispatch(success(response.data)))
     .then(() => !loader || dispatch(loader(false)))
-    .catch((e) => dispatch(failure(e.response.status)));
+    .catch((e) => dispatch(failure(e)));
 };
