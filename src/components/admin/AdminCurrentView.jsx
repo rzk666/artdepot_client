@@ -1,9 +1,7 @@
 import React from 'react';
 // Components
-import ProductsAdminView from './adminViews/ProductsAdminView';
-import UsersAdminView from './adminViews/UsersAdminView';
 import MainAdminView from './adminViews/MainAdminView';
-import OrdersAdminView from './adminViews/OrdersAdminView';
+import AdminTable from './adminViews/AdminTable';
 
 // Styles
 import styles from './AdminCurrentView.module.scss';
@@ -15,12 +13,6 @@ const getDisplayComponent = (props) => {
   let displayComponent;
   const { currentDisplay } = props;
   switch (currentDisplay) {
-    case ADMIN_DISPLAYS.PRODUCTS:
-      displayComponent = <ProductsAdminView {...props} />;
-      break;
-    case ADMIN_DISPLAYS.USERS:
-      displayComponent = <UsersAdminView {...props} />;
-      break;
     case ADMIN_DISPLAYS.MAIN:
       displayComponent = (
         <MainAdminView
@@ -28,10 +20,9 @@ const getDisplayComponent = (props) => {
         />
       );
       break;
-    case ADMIN_DISPLAYS.ORDERS:
-      displayComponent = <OrdersAdminView {...props} />;
-      break;
     default:
+    case ADMIN_DISPLAYS.PRODUCTS:
+      displayComponent = <AdminTable type={currentDisplay} />;
       break;
   }
   return displayComponent;
