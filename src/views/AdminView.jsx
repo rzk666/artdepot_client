@@ -12,25 +12,24 @@ const AdminView = ({
   signOut,
   currentDisplay,
   changeView,
+  fetchProducts,
   misc,
-}) => {
-  const x = 5;
-  return (
-    <div className={styles.wrapper}>
-      <AdminNavbar
-        misc={misc}
-        signOut={signOut}
-        changeView={changeView}
-        currentDisplay={currentDisplay}
-      />
-      <AdminCurrentView
-        changeView={changeView}
-        currentDisplay={currentDisplay}
-        addUser={addUser}
-        misc={misc}
-      />
-    </div>
-  );
-};
+}) => (
+  <div className={styles.wrapper}>
+    <AdminNavbar
+      misc={misc}
+      signOut={signOut}
+      changeView={changeView}
+      currentDisplay={currentDisplay}
+    />
+    <AdminCurrentView
+      fetchProducts={fetchProducts}
+      changeView={changeView}
+      currentDisplay={currentDisplay}
+      addUser={addUser}
+      misc={misc}
+    />
+  </div>
+);
 
 export default AdminView;

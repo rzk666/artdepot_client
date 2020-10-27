@@ -60,7 +60,7 @@ const TableHeaderCell = ({ title, style, key }) => (
 );
 
 const TableCell = ({
-  data, style, key, tableType,
+  data, style, key,
 }) => {
   const { type, value, imgStyle } = data;
   // This can only mean its an image
@@ -295,11 +295,11 @@ class CustomTable extends Component {
   }
 
   render() {
-    const { tableType, data, fields } = this.props;
+    const { currentDisplay, data, fields } = this.props;
     return (
       <>
-        <TableTopBar tableType={tableType} updateSearch={(currentSearch) => this.updateSearch(currentSearch)} />
-        <Table data={data} type={getEnglishFieldType(tableType)} fields={fields} />
+        <TableTopBar tableType={currentDisplay} updateSearch={(currentSearch) => this.updateSearch(currentSearch)} />
+        <Table data={data} type={getEnglishFieldType(currentDisplay)} fields={fields} />
       </>
     );
   }

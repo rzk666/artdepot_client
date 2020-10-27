@@ -24,7 +24,7 @@ const getDisplayComponent = (props) => {
     default:
     case ADMIN_DISPLAYS.PRODUCTS:
       displayComponent = (
-        <AdminTable type={currentDisplay} />
+        <AdminTable {...props} />
       );
       break;
   }

@@ -27,6 +27,9 @@ const Admin = (props) => <AdminController {...props} View={AdminView} />;
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  orders: state.orders,
+  users: state.users,
+  products: state.products,
 });
 
 const mapDispatchToProps = (dispatch) => ({
