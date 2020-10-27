@@ -24,40 +24,12 @@ export const productsHasError = (error) => ({
   error,
 });
 
-export const fetchProductsByIndex = (index) => (({
+export const fetchProducts = (type, data) => (({
   type: API,
   payload: {
     url: {
       base: config.api.url,
-      endpoint: `/products/index=${index}`,
-    },
-    method: 'get',
-    success: (data) => getProducts(data),
-    failure: (data) => productsHasError(data),
-    loader: (data) => productsIsLoading(data),
-  },
-}));
-
-export const fetchProductsByCategory = (categoryId) => (({
-  type: API,
-  payload: {
-    url: {
-      base: config.api.url,
-      endpoint: `/variations/category/${categoryId}`,
-    },
-    method: 'get',
-    success: (data) => getProducts(data),
-    failure: (data) => productsHasError(data),
-    loader: (data) => productsIsLoading(data),
-  },
-}));
-
-export const fetchProductsBySearch = (search) => (({
-  type: API,
-  payload: {
-    url: {
-      base: config.api.url,
-      endpoint: `/variations/search?query=${search}`,
+      endpoint: `/variations/options?${type}=${data}`,
     },
     method: 'get',
     success: (data) => getProducts(data),

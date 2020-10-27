@@ -24,12 +24,12 @@ export const ordersHasError = (error) => ({
   error,
 });
 
-export const fetchOrders = (data) => (({
+export const fetchOrders = (type, data) => (({
   type: API,
   payload: {
     url: {
       base: config.api.url,
-      endpoint: '/orders',
+      endpoint: `/orders/options?${type}=${data}`,
     },
     method: 'get',
     data,

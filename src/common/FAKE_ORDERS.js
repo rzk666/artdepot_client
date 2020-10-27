@@ -6,7 +6,11 @@ const ORDERS = [{
   id: 1,
   is_paid: false,
   is_fullfilled: false,
-  user_id: 1,
+  user: {
+    id: 1,
+    name: 'משתמש בדיקה',
+    company: 'הפיראט האדום',
+  },
   notes: '',
   delivery_address: {
     city: 'נתניה',
@@ -42,7 +46,11 @@ const ORDERS = [{
   id: 2,
   is_paid: true,
   is_fullfilled: false,
-  user_id: 1,
+  user: {
+    id: 1,
+    name: 'משתמש בדיקה',
+    company: 'הפיראט האדום',
+  },
   notes: '',
   delivery_address: {
     city: 'נתניה',
@@ -78,7 +86,11 @@ const ORDERS = [{
   id: 3,
   is_paid: true,
   is_fullfilled: true,
-  user_id: 1,
+  user: {
+    id: 1,
+    name: 'משתמש בדיקה',
+    company: 'הפיראט האדום',
+  },
   notes: '',
   delivery_address: {
     city: 'נתניה',
@@ -114,7 +126,11 @@ const ORDERS = [{
   id: 3,
   is_paid: true,
   is_fullfilled: true,
-  user_id: 1,
+  user: {
+    id: 1,
+    name: 'משתמש בדיקה',
+    company: 'הפיראט האדום',
+  },
   notes: '',
   delivery_address: {
     city: 'נתניה',

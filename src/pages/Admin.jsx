@@ -10,9 +10,7 @@ import {
   fetchOrders,
 } from '../redux/models/orders/ordersActions';
 import {
-  fetchProductsByIndex,
-  fetchProductsBySearch,
-  fetchProductsByCategory,
+  fetchProducts,
 } from '../redux/models/products/productsActions';
 import {
   fetchUsers,
@@ -34,10 +32,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   addUser: (data) => dispatch(addUser(data)),
   fetchUsers: (data) => dispatch(fetchUsers(data)),
-  fetchOrders: (data) => dispatch(fetchOrders(data)),
-  fetchProductsByIndex: (index) => dispatch(fetchProductsByIndex(index)),
-  fetchProductsBySearch: (index) => dispatch(fetchProductsBySearch(index)),
-  fetchProductsByCategory: (index) => dispatch(fetchProductsByCategory(index)),
+  fetchOrders: (type, data) => dispatch(fetchOrders(type, data)),
+  fetchProducts: (type, data) => dispatch(fetchProducts(type, data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(page((Admin), pages.ADMIN));
