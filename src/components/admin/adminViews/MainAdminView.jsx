@@ -141,7 +141,7 @@ const OpenOrders = (props) => (
   </div>
 );
 
-const MainAdminView = ({ title, changeView }) => {
+const MainAdminView = ({ misc, title, changeView }) => {
   const x = 5;
   return (
     <div className={styles.wrapper}>

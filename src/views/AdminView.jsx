@@ -14,6 +14,7 @@ const AdminView = ({
   fetchProducts,
   fetchOrders,
   fetchUsers,
+  misc,
 }) => (
   <div className={styles.wrapper}>
     <AdminNavbar
@@ -22,6 +23,7 @@ const AdminView = ({
       currentDisplay={currentDisplay}
     />
     <AdminCurrentView
+      misc={misc}
       fetchProducts={fetchProducts}
       fetchUsers={fetchUsers}
       fetchOrders={fetchOrders}

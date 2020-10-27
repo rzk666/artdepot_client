@@ -28,6 +28,7 @@ const getShortName = (name) => {
 
 // ----- Help Components ----- //
 const TableTopBar = ({
+  currentSearch,
   updateSearch,
   tableType,
 }) => (
@@ -36,6 +37,7 @@ const TableTopBar = ({
   >
     <div className={styles.search_container}>
       <Input
+        value={currentSearch}
         onChange={(e) => updateSearch(e.currentTarget.value)}
         icon="search"
         placeholder={`חיפוש ${tableType}`}
@@ -287,9 +289,14 @@ class CustomTable extends Component {
     const { currentSearch } = this.state;
     const { currentDisplay } = this.props;
     const hasSearchChanged = prevState.currentSearch !== currentSearch;
+    const hasDisplayChanged = currentDisplay !== prevProps.currentDisplay;
     // Hadnle search changes
     if (hasSearchChanged && currentDisplay !== 'משתמשים') {
       this.handleServerSearch();
+    }
+    // Handle display change
+    if (hasDisplayChanged) {
+      this.updateSearch('');
     }
   }
 

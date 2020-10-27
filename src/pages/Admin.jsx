@@ -30,6 +30,7 @@ const mapStateToProps = (state) => ({
   orders: state.orders,
   users: state.users,
   products: state.products,
+  misc: state.misc,
 });
 
 const mapDispatchToProps = (dispatch) => ({
