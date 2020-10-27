@@ -8,6 +8,9 @@ import {
   ISOToShortDate,
 } from '../../libs/helpers';
 // Components
+import { Input } from 'semantic-ui-react';
+// Libs
+import classnames from 'classnames';
 // Images
 import Available from '../../static/images/icons/approve.png';
 import NotAvailable from '../../static/images/icons/cancel.png';
@@ -21,6 +24,16 @@ const getShortName = (name) => {
   }
   return name;
 };
+
+// ----- Help Components ----- //
+const TableTopBar = () => (
+  <div style={{
+    width: '90%',
+    height: '150px',
+    backgroundColor: 'green',
+  }}
+  />
+);
 
 const TableHeaderCell = ({ title, style, key }) => (
   <div key={key} style={{ ...style }} className={styles.table_header_cell}>
@@ -83,10 +96,10 @@ const Table = ({ type, fields, data }) => {
                       cellData = { type: 'img', value: is_available ? Available : NotAvailable, imgStyle: { height: '35px', width: '35px' } };
                       break;
                     case 'מחיר נוכחי':
-                      cellData = price;
+                      cellData = `${price} ש"ח`;
                       break;
                     case 'מחיר מבצע':
-                      cellData = getDiscountedPrice(price, unit_sale_precentage);
+                      cellData = `${getDiscountedPrice(price, unit_sale_precentage)} ש"ח`;
                       break;
                     default:
                       break;
@@ -143,7 +156,7 @@ const Table = ({ type, fields, data }) => {
                       cellData = amount.toString();
                       break;
                     case 'סך עסקאות':
-                      cellData = total_paid.toString();
+                      cellData = `${total_paid.toString()} ש"ח`;
                       break;
                     default:
                       break;
@@ -169,10 +182,8 @@ const Table = ({ type, fields, data }) => {
             created_utc,
             user_id,
             is_paid,
-            is_delivered,
             is_fullfilled,
             fullfilled_date,
-            delivered_date,
             paid_date,
             variations,
           } = order;
@@ -184,7 +195,7 @@ const Table = ({ type, fields, data }) => {
           return (
             <div
               style={{ height: '50px' }}
-              className={styles.table_row}
+              className={classnames(styles.table_row, { [styles.order_completed]: is_fullfilled })}
             >
               { fields.map((field, i) => {
                 const { fieldTitle, style } = field;
@@ -211,14 +222,8 @@ const Table = ({ type, fields, data }) => {
                   case 'תאריך שילוח':
                     cellData = ISOToShortDate(fullfilled_date);
                     break;
-                  case 'הזמנה התקבלה':
-                    cellData = { type: 'img', value: is_delivered ? Available : NotAvailable, imgStyle: { height: '35px', width: '35px' } };
-                    break;
-                  case 'תאריך סיום הזמנה':
-                    cellData = ISOToShortDate(delivered_date);
-                    break;
                   case 'סכום הזמנה':
-                    cellData = orderSum;
+                    cellData = `${orderSum} ש"ח`;
                     break;
                   default:
                     break;
@@ -263,15 +268,21 @@ class CustomTable extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentFilter: '',
-      currentSorter: '',
+      currentSearch: '',
     };
+  }
+
+  updateSearch(currentSearch) {
+    this.setState({ currentSearch });
   }
 
   render() {
     const { tableType, data, fields } = this.props;
     return (
-      <Table data={data} type={getEnglishFieldType(tableType)} fields={fields} />
+      <>
+        <TableTopBar updateSearch={(currentSearch) => this.updateSearch(currentSearch)} />
+        <Table data={data} type={getEnglishFieldType(tableType)} fields={fields} />
+      </>
     );
   }
 }

@@ -119,14 +119,6 @@ export const ADMIN_TABLE_FIELDS = {
       style: { width: '10%' },
     },
     {
-      fieldTitle: 'הזמנה התקבלה',
-      style: { width: '10%' },
-    },
-    {
-      fieldTitle: 'תאריך סיום הזמנה',
-      style: { width: '10%' },
-    },
-    {
       fieldTitle: 'סכום הזמנה',
       style: { width: '10%' },
     },

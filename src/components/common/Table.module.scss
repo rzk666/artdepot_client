@@ -1,8 +1,8 @@
 .table{
     display: flex;
     flex-direction: column;
-    width: 100%;
-    height: 100%;
+    width: 98%;
+    height: 90%;
     .table_body{
         // There are max 8 products / 16 entries per page
         min-height: 800px;
@@ -33,6 +33,9 @@
         &:hover{
             background-color: rgba(255, 232, 214, 0.1);
             cursor:pointer;
+        }
+        &.order_completed{
+            background-color: rgba(180,207,181, 0.5);
         }
         background-color: white;
         display: flex;

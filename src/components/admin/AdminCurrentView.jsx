@@ -2,7 +2,8 @@ import React from 'react';
 // Components
 import MainAdminView from './adminViews/MainAdminView';
 import AdminTable from './adminViews/AdminTable';
-
+// Libs
+import classnames from 'classnames';
 // Styles
 import styles from './AdminCurrentView.module.scss';
 // Dictioneries
@@ -22,14 +23,19 @@ const getDisplayComponent = (props) => {
       break;
     default:
     case ADMIN_DISPLAYS.PRODUCTS:
-      displayComponent = <AdminTable type={currentDisplay} />;
+      displayComponent = (
+        <AdminTable type={currentDisplay} />
+      );
       break;
   }
   return displayComponent;
 };
 
 const AdminCurrentView = (props) => (
-  <div className={styles.view_container}>
+  <div
+    className={classnames(styles.view_container,
+      { [styles.is_table]: props.currentDisplay !== ADMIN_DISPLAYS.MAIN })}
+  >
     {getDisplayComponent(props)}
   </div>
 );

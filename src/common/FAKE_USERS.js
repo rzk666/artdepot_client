@@ -3,6 +3,7 @@ const USERS = [{
   role: 'user',
   name: 'דוד אמסלם',
   company: 'הפירט האדום',
+  email: 'razos10@gmail.com',
   delivery_addresses: [{
     city: 'נתניה',
     address: 'רחוב החופש 42',
@@ -19,6 +20,7 @@ const USERS = [{
   role: 'user',
   name: 'יותם נגור',
   company: 'הפירט הירוק',
+  email: 'razos10@gmail.com',
   delivery_addresses: [{
     city: 'נתניה',
     address: 'רחוב החופש 42',
@@ -35,6 +37,7 @@ const USERS = [{
   role: 'user',
   name: 'רזי אלבז',
   company: 'הפירט הכתום',
+  email: 'razos10@gmail.com',
   delivery_addresses: [{
     city: 'נתניה',
     address: 'רחוב החופש 42',

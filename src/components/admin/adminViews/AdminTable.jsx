@@ -31,11 +31,7 @@ const AdminTable = ({ type, data }) => {
       break;
   }
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.table_container}>
-        <CustomTable fields={currentFields} data={testData} tableType={type} />
-      </div>
-    </div>
+    <CustomTable fields={currentFields} data={testData} tableType={type} />
   );
 };
 
