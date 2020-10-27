@@ -16,6 +16,7 @@ import Available from '../../static/images/icons/approve.png';
 import NotAvailable from '../../static/images/icons/cancel.png';
 // Styles
 import styles from './Table.module.scss';
+import { formatDiagnostic } from 'typescript';
 
 // ----- Help Functions ----- //
 const getShortName = (name) => {
@@ -37,7 +38,7 @@ const TableTopBar = ({
       <Input
         onChange={(e) => updateSearch(e.currentTarget.value)}
         icon="search"
-        placeholder={`${tableType} חיפוש`}
+        placeholder={`חיפוש ${tableType}`}
       />
     </div>
     <div className={styles.filters_container} />
@@ -278,22 +279,30 @@ class CustomTable extends Component {
     super(props);
     this.state = {
       currentSearch: '',
+      currentPage: 1,
     };
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { currentSearch } = this.state;
-    if (currentSearch && prevState.currentSearch !== currentSearch) {
-      this.handleSearch();
+    const { currentDisplay } = this.props;
+    const hasSearchChanged = prevState.currentSearch !== currentSearch;
+    // Hadnle search changes
+    if (hasSearchChanged && currentDisplay !== 'משתמשים') {
+      this.handleServerSearch();
     }
   }
 
-  handleSearch() {
+  handleServerSearch() {
     const {
       fetchDataFunction,
     } = this.props;
-    const { currentSearch } = this.state;
-    fetchDataFunction('search', currentSearch);
+    const { currentSearch, currentPage } = this.state;
+    if (currentSearch) {
+      fetchDataFunction('search', currentSearch);
+    } else {
+      fetchDataFunction('index', currentPage);
+    }
   }
 
   updateSearch(currentSearch) {
@@ -306,13 +315,40 @@ class CustomTable extends Component {
       data,
       fields,
     } = this.props;
+    const { currentSearch } = this.state;
+    let filteredUsers;
+    if (currentDisplay === 'משתמשים') {
+      filteredUsers = data.filter((user) => {
+        const { name, company, id } = user;
+        const formattedSearch = currentSearch.split(' ');
+        if (formattedSearch.length === 1) {
+          return name.includes(currentSearch)
+          || company.includes(currentSearch)
+          || id.toString().includes(currentSearch);
+        }
+        let isFound = true;
+        for (let i = 0; i < formattedSearch.length && isFound; i += 1) {
+          if (!name.includes(formattedSearch[i])
+              && !company.includes(formattedSearch[i])
+              && !id.toString().includes(formattedSearch[i])) {
+            isFound = false;
+          }
+        }
+        return isFound;
+      });
+    }
     return (
       <>
         <TableTopBar
+          currentSearch={currentSearch}
           tableType={currentDisplay}
-          updateSearch={(currentSearch) => this.updateSearch(currentSearch)}
+          updateSearch={(search) => this.updateSearch(search)}
         />
-        <Table data={data} type={getEnglishFieldType(currentDisplay)} fields={fields} />
+        <Table
+          data={filteredUsers || data}
+          type={getEnglishFieldType(currentDisplay)}
+          fields={fields}
+        />
       </>
     );
   }
