@@ -29,32 +29,20 @@ const getShortName = (name) => {
 const TableTopBar = ({
   updateSearch,
   tableType,
-}) => {
-  let searchPlaceholder;
-  switch (tableType) {
-    case 'מוצרים':
-      searchPlaceholder = 'חיפוש מוצרים';
-      break;
-    case 'משתמשים':
-      searchPlaceholder = 'חיפוש משתמשים';
-      break;
-    case 'הזמנות':
-      searchPlaceholder = 'חיפוש הזמנות';
-      break;
-    default:
-      break;
-  }
-  return (
-    <div
-      className={styles.top_bar_container}
-    >
-      <div className={styles.search_container}>
-        <Input onChange={(e) => updateSearch(e.currentTarget.value)} icon="search" placeholder={searchPlaceholder} />
-      </div>
-      <div className={styles.filters_container} />
+}) => (
+  <div
+    className={styles.top_bar_container}
+  >
+    <div className={styles.search_container}>
+      <Input
+        onChange={(e) => updateSearch(e.currentTarget.value)}
+        icon="search"
+        placeholder={`${tableType} חיפוש`}
+      />
     </div>
-  );
-};
+    <div className={styles.filters_container} />
+  </div>
+);
 
 const TableHeaderCell = ({ title, style, key }) => (
   <div key={key} style={{ ...style }} className={styles.table_header_cell}>
@@ -302,27 +290,10 @@ class CustomTable extends Component {
 
   handleSearch() {
     const {
-      fetchProducts,
-      fetchOrders,
-      fetchUsers,
-      currentDisplay,
+      fetchDataFunction,
     } = this.props;
     const { currentSearch } = this.state;
-    let fetchFunction;
-    switch (currentDisplay) {
-      case 'מוצרים':
-        fetchFunction = () => fetchProducts('search', currentSearch);
-        break;
-      case 'הזמנות':
-        fetchFunction = () => fetchOrders('search', currentSearch);
-        break;
-      case 'משתמשים':
-        fetchFunction = () => fetchUsers('search', currentSearch);
-        break;
-      default:
-        break;
-    }
-    fetchFunction();
+    fetchDataFunction('search', currentSearch);
   }
 
   updateSearch(currentSearch) {
@@ -331,9 +302,6 @@ class CustomTable extends Component {
 
   render() {
     const {
-      fetchOrders,
-      fetchProducts,
-      fetchUsers,
       currentDisplay,
       data,
       fields,
@@ -341,9 +309,6 @@ class CustomTable extends Component {
     return (
       <>
         <TableTopBar
-          fetchOrders={fetchOrders}
-          fetchUsers={fetchUsers}
-          fetchProducts={fetchProducts}
           tableType={currentDisplay}
           updateSearch={(currentSearch) => this.updateSearch(currentSearch)}
         />

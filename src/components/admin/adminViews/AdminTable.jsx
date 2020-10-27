@@ -12,16 +12,23 @@ import USERS from '../../../common/FAKE_USERS';
 import ORDERS from '../../../common/FAKE_ORDERS';
 
 const AdminTable = (props) => {
-  const { currentDisplay } = props;
+  const {
+    currentDisplay,
+    fetchOrders,
+    fetchProducts,
+  } = props;
   const englishType = getEnglishFieldType(currentDisplay);
   let testData;
+  let fetchDataFunction;
   const currentFields = ADMIN_TABLE_FIELDS[englishType];
   switch (englishType) {
     case 'products':
       testData = PRODUCTS;
+      fetchDataFunction = fetchProducts;
       break;
     case 'orders':
       testData = ORDERS;
+      fetchDataFunction = fetchOrders;
       break;
     case 'users':
       testData = USERS;
@@ -30,7 +37,12 @@ const AdminTable = (props) => {
       break;
   }
   return (
-    <CustomTable fields={currentFields} data={testData} {...props} />
+    <CustomTable
+      fetchDataFunction={fetchDataFunction}
+      fields={currentFields}
+      data={testData}
+      {...props}
+    />
   );
 };
 
