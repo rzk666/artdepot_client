@@ -26,7 +26,10 @@ const getShortName = (name) => {
 };
 
 // ----- Help Components ----- //
-const TableTopBar = ({ updateSearch, tableType }) => {
+const TableTopBar = ({
+  updateSearch,
+  tableType,
+}) => {
   let searchPlaceholder;
   switch (tableType) {
     case 'מוצרים':
@@ -46,7 +49,7 @@ const TableTopBar = ({ updateSearch, tableType }) => {
       className={styles.top_bar_container}
     >
       <div className={styles.search_container}>
-        <Input icon="search" placeholder={searchPlaceholder} />
+        <Input onChange={(e) => updateSearch(e.currentTarget.value)} icon="search" placeholder={searchPlaceholder} />
       </div>
       <div className={styles.filters_container} />
     </div>
@@ -290,15 +293,60 @@ class CustomTable extends Component {
     };
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { currentSearch } = this.state;
+    if (currentSearch && prevState.currentSearch !== currentSearch) {
+      this.handleSearch();
+    }
+  }
+
+  handleSearch() {
+    const {
+      fetchProducts,
+      fetchOrders,
+      fetchUsers,
+      currentDisplay,
+    } = this.props;
+    const { currentSearch } = this.state;
+    let fetchFunction;
+    switch (currentDisplay) {
+      case 'מוצרים':
+        fetchFunction = () => fetchProducts('search', currentSearch);
+        break;
+      case 'הזמנות':
+        fetchFunction = () => fetchOrders('search', currentSearch);
+        break;
+      case 'משתמשים':
+        fetchFunction = () => fetchUsers('search', currentSearch);
+        break;
+      default:
+        break;
+    }
+    fetchFunction();
+  }
+
   updateSearch(currentSearch) {
     this.setState({ currentSearch });
   }
 
   render() {
-    const { currentDisplay, data, fields } = this.props;
+    const {
+      fetchOrders,
+      fetchProducts,
+      fetchUsers,
+      currentDisplay,
+      data,
+      fields,
+    } = this.props;
     return (
       <>
-        <TableTopBar tableType={currentDisplay} updateSearch={(currentSearch) => this.updateSearch(currentSearch)} />
+        <TableTopBar
+          fetchOrders={fetchOrders}
+          fetchUsers={fetchUsers}
+          fetchProducts={fetchProducts}
+          tableType={currentDisplay}
+          updateSearch={(currentSearch) => this.updateSearch(currentSearch)}
+        />
         <Table data={data} type={getEnglishFieldType(currentDisplay)} fields={fields} />
       </>
     );

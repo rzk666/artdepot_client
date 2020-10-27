@@ -8,26 +8,25 @@ import styles from './Admin.module.scss';
 // Help Components
 
 const AdminView = ({
-  addUser,
   signOut,
   currentDisplay,
   changeView,
   fetchProducts,
-  misc,
+  fetchOrders,
+  fetchUsers,
 }) => (
   <div className={styles.wrapper}>
     <AdminNavbar
-      misc={misc}
       signOut={signOut}
       changeView={changeView}
       currentDisplay={currentDisplay}
     />
     <AdminCurrentView
       fetchProducts={fetchProducts}
+      fetchUsers={fetchUsers}
+      fetchOrders={fetchOrders}
       changeView={changeView}
       currentDisplay={currentDisplay}
-      addUser={addUser}
-      misc={misc}
     />
   </div>
 );
