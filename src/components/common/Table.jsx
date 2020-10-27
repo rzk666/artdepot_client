@@ -9,6 +9,7 @@ import {
 } from '../../libs/helpers';
 // Components
 import { Input } from 'semantic-ui-react';
+import Loader from './Notifications/Loader';
 // Libs
 import classnames from 'classnames';
 // Images
@@ -16,7 +17,6 @@ import Available from '../../static/images/icons/approve.png';
 import NotAvailable from '../../static/images/icons/cancel.png';
 // Styles
 import styles from './Table.module.scss';
-import { formatDiagnostic } from 'typescript';
 
 // ----- Help Functions ----- //
 const getShortName = (name) => {
@@ -31,12 +31,14 @@ const TableTopBar = ({
   currentSearch,
   updateSearch,
   tableType,
+  isLoading,
 }) => (
   <div
     className={styles.top_bar_container}
   >
     <div className={styles.search_container}>
       <Input
+        loading={isLoading}
         value={currentSearch}
         onChange={(e) => updateSearch(e.currentTarget.value)}
         icon="search"
@@ -66,8 +68,10 @@ const TableCell = ({
   );
 };
 
-const Table = ({ type, fields, data }) => {
-  const TABLE_BODY = () => {
+const Table = ({
+  type, fields, data, isLoading,
+}) => {
+  const TableBody = () => {
     if (type === 'products') {
       const VARIATIONS = [];
       data.map((product) => {
@@ -269,7 +273,15 @@ const Table = ({ type, fields, data }) => {
         })}
       </div>
       <div className={styles.table_body}>
-        <TABLE_BODY />
+        {
+          isLoading
+            ? (
+              <div className={styles.loader}>
+                <Loader />
+              </div>
+            )
+            : <TableBody />
+        }
       </div>
       <div className={styles.table_footer} />
     </div>
@@ -321,6 +333,9 @@ class CustomTable extends Component {
       currentDisplay,
       data,
       fields,
+      // TEST
+      isLoading,
+      // TEST
     } = this.props;
     const { currentSearch } = this.state;
     let filteredUsers;
@@ -347,11 +362,13 @@ class CustomTable extends Component {
     return (
       <>
         <TableTopBar
+          isLoading={isLoading}
           currentSearch={currentSearch}
           tableType={currentDisplay}
           updateSearch={(search) => this.updateSearch(search)}
         />
         <Table
+          isLoading={isLoading}
           data={filteredUsers || data}
           type={getEnglishFieldType(currentDisplay)}
           fields={fields}

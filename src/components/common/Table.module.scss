@@ -8,6 +8,13 @@
         // There are max 8 products / 16 entries per page
         min-height: 800px;
         background-color: rgba(255, 232, 214, 0.25);
+        .loader{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
     }
     .table_header{
         display: flex;

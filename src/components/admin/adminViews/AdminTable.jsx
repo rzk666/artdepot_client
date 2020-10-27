@@ -16,6 +16,9 @@ const AdminTable = (props) => {
     currentDisplay,
     fetchOrders,
     fetchProducts,
+    users,
+    products,
+    orders,
   } = props;
   const englishType = getEnglishFieldType(currentDisplay);
   let testData;
@@ -38,6 +41,9 @@ const AdminTable = (props) => {
   }
   return (
     <CustomTable
+      // TEST
+      isLoading={products.isLoading}
+      // TEST
       fetchDataFunction={fetchDataFunction}
       fields={currentFields}
       data={testData}

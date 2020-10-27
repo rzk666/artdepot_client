@@ -1,6 +1,6 @@
 export const INITIAL_STATE = {
   products: {
-    isLoading: true,
+    isLoading: false,
     hasError: false,
     errorCode: -1,
     data: [],
