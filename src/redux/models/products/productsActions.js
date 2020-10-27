@@ -24,17 +24,44 @@ export const productsHasError = (error) => ({
   error,
 });
 
-export const fetchProducts = (data) => (({
-  type   : API,
+export const fetchProductsByIndex = (index) => (({
+  type: API,
   payload: {
     url: {
-      base    : config.api.url,
-      endpoint: '/auth/login/google',
+      base: config.api.url,
+      endpoint: `/products/index=${index}`,
     },
-    method : 'post',
-    data,
+    method: 'get',
     success: (data) => getProducts(data),
     failure: (data) => productsHasError(data),
-    loader : (data) => productsIsLoading(data),
+    loader: (data) => productsIsLoading(data),
+  },
+}));
+
+export const fetchProductsByCategory = (categoryId) => (({
+  type: API,
+  payload: {
+    url: {
+      base: config.api.url,
+      endpoint: `/variations/category/${categoryId}`,
+    },
+    method: 'get',
+    success: (data) => getProducts(data),
+    failure: (data) => productsHasError(data),
+    loader: (data) => productsIsLoading(data),
+  },
+}));
+
+export const fetchProductsBySearch = (search) => (({
+  type: API,
+  payload: {
+    url: {
+      base: config.api.url,
+      endpoint: `/variations/search?query=${search}`,
+    },
+    method: 'get',
+    success: (data) => getProducts(data),
+    failure: (data) => productsHasError(data),
+    loader: (data) => productsIsLoading(data),
   },
 }));

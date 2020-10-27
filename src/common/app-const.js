@@ -5,6 +5,18 @@ export const INITIAL_STATE = {
     errorCode: -1,
     data: [],
   },
+  users: {
+    isLoading: true,
+    hasError: false,
+    errorCode: -1,
+    data: [],
+  },
+  orders: {
+    isLoading: true,
+    hasError: false,
+    errorCode: -1,
+    data: [],
+  },
   auth: {
     isLoading: false,
     hasError: false,

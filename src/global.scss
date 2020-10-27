@@ -17,6 +17,8 @@ html{
     }
     * {
         box-sizing: border-box;
+        text-align: right!important;
+        direction: rtl;
     }
     body {
         margin: 0;

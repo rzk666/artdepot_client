@@ -26,14 +26,32 @@ const getShortName = (name) => {
 };
 
 // ----- Help Components ----- //
-const TableTopBar = () => (
-  <div style={{
-    width: '90%',
-    height: '150px',
-    backgroundColor: 'green',
-  }}
-  />
-);
+const TableTopBar = ({ updateSearch, tableType }) => {
+  let searchPlaceholder;
+  switch (tableType) {
+    case 'מוצרים':
+      searchPlaceholder = 'חיפוש מוצרים';
+      break;
+    case 'משתמשים':
+      searchPlaceholder = 'חיפוש משתמשים';
+      break;
+    case 'הזמנות':
+      searchPlaceholder = 'חיפוש הזמנות';
+      break;
+    default:
+      break;
+  }
+  return (
+    <div
+      className={styles.top_bar_container}
+    >
+      <div className={styles.search_container}>
+        <Input icon="search" placeholder={searchPlaceholder} />
+      </div>
+      <div className={styles.filters_container} />
+    </div>
+  );
+};
 
 const TableHeaderCell = ({ title, style, key }) => (
   <div key={key} style={{ ...style }} className={styles.table_header_cell}>
@@ -280,7 +298,7 @@ class CustomTable extends Component {
     const { tableType, data, fields } = this.props;
     return (
       <>
-        <TableTopBar updateSearch={(currentSearch) => this.updateSearch(currentSearch)} />
+        <TableTopBar tableType={tableType} updateSearch={(currentSearch) => this.updateSearch(currentSearch)} />
         <Table data={data} type={getEnglishFieldType(tableType)} fields={fields} />
       </>
     );
