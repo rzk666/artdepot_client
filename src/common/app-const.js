@@ -110,7 +110,12 @@ export const ADMIN_TABLE_FIELDS = {
     }, {
       fieldTitle: 'לקוח',
       style: { width: '10%' },
-    }, {
+    },
+    {
+      fieldTitle: 'ח"פ לקוח',
+      style: { width: '10%' },
+    },
+    {
       fieldTitle: 'חברה',
       style: { flex: 1 },
     },

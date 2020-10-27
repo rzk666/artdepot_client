@@ -63,11 +63,9 @@ const TableCell = ({
   data, style, key, tableType,
 }) => {
   const { type, value, imgStyle } = data;
-  const addPadding = ((!tableType === 'products')
-                      && (typeof data === 'number' || type));
   // This can only mean its an image
   return (
-    <div style={{ ...style, justifyContent: Number.isInteger(data) ? 'center' : '', paddingRight: addPadding ? '40px' : '' }} className={styles.table_cell}>
+    <div style={{ ...style }} className={styles.table_cell}>
       { type
         ? <img style={imgStyle} src={value} alt={`${key}_image`} /> : data }
     </div>
@@ -198,7 +196,7 @@ const Table = ({ type, fields, data }) => {
         { data.map((order) => {
           const {
             created_utc,
-            user_id,
+            user,
             is_paid,
             is_fullfilled,
             fullfilled_date,
@@ -207,8 +205,7 @@ const Table = ({ type, fields, data }) => {
           } = order;
           // Get customer company & name by userId
           // --- TEMP UNTIL WE FIGURE OUT HOW TO GET UESR DETAILS HERE --- //
-          const tempUserName = 'רזי';
-          const tempUserCompany = 'הפיראט האדום';
+          const { name, company, id } = user;
           const orderSum = variations.reduce((acc, item) => acc + item.price, 0);
           return (
             <div
@@ -223,10 +220,13 @@ const Table = ({ type, fields, data }) => {
                     cellData = ISOToShortDate(created_utc);
                     break;
                   case 'לקוח':
-                    cellData = getShortName(tempUserName);
+                    cellData = getShortName(name);
+                    break;
+                  case 'ח"פ לקוח':
+                    cellData = id;
                     break;
                   case 'חברה':
-                    cellData = getShortName(tempUserCompany);
+                    cellData = getShortName(company);
                     break;
                   case 'שולם':
                     cellData = { type: 'img', value: is_paid ? Available : NotAvailable, imgStyle: { height: '35px', width: '35px' } };
