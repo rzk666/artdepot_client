@@ -6,7 +6,7 @@ import HttpRequest from '../util/HttpRequest';
 export const API = 'API';
 
 // ACTION
-export const httpRequestAction = (action, dispatch, token) => {
+export const httpRequestAction = async (action, dispatch, token) => {
   const {
     url,
     method = 'get',
@@ -25,8 +25,11 @@ export const httpRequestAction = (action, dispatch, token) => {
   };
   if (Object.keys(data).length) { options.data = data; }
   if (Object.keys(params).length) { options.params = params; }
-  return new HttpRequest(token)(options)
-    .then((response) => dispatch(success(response.data)))
-    .then(() => !loader || dispatch(loader(false)))
-    .catch((e) => dispatch(failure(e)));
+  try {
+    const response = await HttpRequest(token)(options);
+    dispatch(success(response.data));
+    !loader || dispatch(loader(false));
+  } catch (e) {
+    dispatch(e(failure(e)));
+  }
 };
