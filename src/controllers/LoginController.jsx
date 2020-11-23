@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 // common
 import ROUTES from '../universal/routes';
 // Redux Action
@@ -22,46 +22,39 @@ const handleAuthChange = (controllerProps) => {
   }
 };
 
-class LoginController extends React.Component {
-  componentDidMount() {
+const LoginController = (props) => {
+  const {
+    auth, cookies, refreshAuth, login,
+  } = props;
+
+  // ------ Use Effects ----- //
+  useEffect(() => {
     // handle cookies
-    const { cookies, refreshAuth } = this.props;
     const cookie = cookies.get('auth');
-    if (cookie.token) {
+    if (cookie && cookie.token) {
       refreshAuth(cookie);
     }
-  }
+  }, []);
 
-  componentDidUpdate(prevProps) {
-    const { auth } = this.props;
+  useEffect(() => {
     const { isLoggedIn } = auth;
     // Indicates a successfull login
-    if (prevProps.auth.isLoggedIn !== isLoggedIn) {
-      handleAuthChange(this.props);
+    if (isLoggedIn) {
+      handleAuthChange(props);
     }
-  }
+  }, [auth.isLoggedIn]);
 
-  login(data) {
-    const { login } = this.props;
+  const userLogin = (data) => {
     login(data);
-  }
+  };
 
-  callbacks() {
-    return {
-      login: this.login.bind(this),
-    };
-  }
-
-  render() {
-    const { View } = this.props;
-    return (
-      <View
-        {...this.props}
-        {...this.state}
-        {...this.callbacks()}
-      />
-    );
-  }
-}
+  const { View } = props;
+  return (
+    <View
+      {...props}
+      login={userLogin}
+    />
+  );
+};
 
 export default LoginController;

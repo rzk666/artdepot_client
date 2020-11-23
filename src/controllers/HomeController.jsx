@@ -1,9 +1,12 @@
 import React from 'react';
 
-const HomeController = ({ View, ...props }) => (
-  <View
-    {...props}
-  />
-);
+const HomeController = (props) => {
+  const { View } = props;
+  return (
+    <View
+      {...props}
+    />
+  );
+};
 
 export default HomeController;
