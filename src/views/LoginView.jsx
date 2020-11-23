@@ -1,5 +1,7 @@
 /* eslint-disable no-underscore-dangle */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+// Custom Hooks
+import usePrevious from '../hooks/usePrevious';
 // Components
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -13,9 +15,42 @@ import FORMS from '../common/form-fields';
 const { LOGIN_FIELDS } = FORMS;
 
 // Help Components
-class LoginComponent extends React.Component {
-  constructor(props) {
-    super(props);
+const LoginComponent = (props) => {
+  const { hasError, login, isLoading } = props;
+
+  // ----- State ----- //
+  const [state, setState] = useState({
+    formFieldsRefs: [],
+    showErrors: false,
+  });
+
+  // ----- Previous ----- //
+  const previousAuthError = usePrevious(hasError);
+
+  // ----- Callbacks ----- //
+  const _handleFailedLogin = (prevAuthError) => {
+    if (!prevAuthError && hasError) {
+      setState({ ...state, showErrors: true });
+    }
+  };
+
+  const handleFieldChange = () => {
+    setState({ ...state, showErrors: false });
+  };
+
+  const handleLogin = () => {
+    const { formFieldsRefs } = state;
+    const customerId = formFieldsRefs[0].current.value;
+    const password = formFieldsRefs[1].current.value;
+    if (!customerId || !password) {
+      setState({ ...state, showErrors: true });
+    } else {
+      login({ customerId, password });
+    }
+  };
+
+  // ----- Use Effects ----- //
+  useEffect(() => {
     // Fields indexes
     // 0 -> userField
     // 1 -> passwordField
@@ -23,86 +58,55 @@ class LoginComponent extends React.Component {
     for (let i = 0; i < Object.keys(LOGIN_FIELDS).length; i += 1) {
       refs[i] = React.createRef();
     }
-    this.state = {
-      formFieldsRefs: refs,
-      showErrors: false,
-    };
-  }
+    setState({ ...state, formFieldRefs: refs });
+  }, []);
 
+  useEffect(() => {
+    _handleFailedLogin(previousAuthError);
+  });
 
-  componentDidUpdate(prevProps) {
-    // Handle failed login attempt
-    this._handleFailedLogin(prevProps);
-  }
-
-  _handleFailedLogin(prevProps) {
-    const { hasError } = this.props;
-    if (!prevProps.hasError && hasError) {
-      this.setState({ showErrors: true });
-    }
-  }
-
-  handleFieldChange() {
-    this.setState({ showErrors: false });
-  }
-
-  handleLogin() {
-    const { login } = this.props;
-    const { formFieldsRefs } = this.state;
-    const customerId = formFieldsRefs[0].current.value;
-    const password = formFieldsRefs[1].current.value;
-    if (!customerId || !password) {
-      this.setState({ showErrors: true });
-    } else {
-      login({ customerId, password });
-    }
-  }
-
-  render() {
-    const { isLoading } = this.props;
-    const { formFieldsRefs, showErrors } = this.state;
-    const fields = Object.keys(LOGIN_FIELDS).map((key, i) => (
-      <Form.Group
-        className={styles.form_group}
-        key={`${key}_${i}`}
+  const { formFieldsRefs, showErrors } = state;
+  const fields = Object.keys(LOGIN_FIELDS).map((key, i) => (
+    <Form.Group
+      className={styles.form_group}
+      key={`${key}_${i}`}
+    >
+      <Form.Label
+        key={`loginlabel_${i}`}
       >
-        <Form.Label
-          key={`loginlabel_${i}`}
-        >
-          {LOGIN_FIELDS[key].placeholder}
-        </Form.Label>
-        <Form.Control
-          onChange={() => this.handleFieldChange()}
-          ref={formFieldsRefs[i]}
-          type={LOGIN_FIELDS[key].type}
-          placholder={LOGIN_FIELDS[key].placeholder}
-        />
-      </Form.Group>
-    ));
-    return (
-      <>
-        <Form>
-          {fields}
-          <div className={classnames(styles.login_btn, { [styles.fade]: showErrors })}>
-            <Button
-              onClick={() => this.handleLogin()}
-              variant="primary"
-            >
-              התחבר
-            </Button>
-          </div>
-        </Form>
-        { isLoading
+        {LOGIN_FIELDS[key].placeholder}
+      </Form.Label>
+      <Form.Control
+        onChange={() => handleFieldChange()}
+        ref={formFieldsRefs[i]}
+        type={LOGIN_FIELDS[key].type}
+        placholder={LOGIN_FIELDS[key].placeholder}
+      />
+    </Form.Group>
+  ));
+
+  return (
+    <>
+      <Form>
+        {fields}
+        <div className={classnames(styles.login_btn, { [styles.fade]: showErrors })}>
+          <Button
+            onClick={() => handleLogin()}
+            variant="primary"
+          >
+            התחבר
+          </Button>
+        </div>
+      </Form>
+      { isLoading
         && <Loader style={{ marginTop: '10px' }} />}
-        { showErrors
+      { showErrors
           && <div className={styles.errors_container}>הוזנו פרטים שגויים</div>}
-      </>
-    );
-  }
-}
+    </>
+  );
+};
 
 const LoginView = ({
-  formFieldsRefs,
   login,
   auth,
 }) => {
@@ -114,7 +118,6 @@ const LoginView = ({
           hasError={hasError}
           isLoading={isLoading}
           login={login}
-          formFieldsRefs={formFieldsRefs}
         />
       </div>
     </div>
