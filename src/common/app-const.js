@@ -22,7 +22,7 @@ export const INITIAL_STATE = {
     hasError: false,
     error: '',
     isLoggedIn: false,
-    token: '',
+    token: '1',
     user: {
       role: 'admin',
     },
