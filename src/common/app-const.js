@@ -23,6 +23,9 @@ export const INITIAL_STATE = {
     error: '',
     isLoggedIn: false,
     token: '',
+    user: {
+      role: 'admin',
+    },
   },
   admin: {
     isLoading: false,

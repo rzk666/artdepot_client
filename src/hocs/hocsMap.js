@@ -8,5 +8,4 @@ const HOCS_MAP = {
   admin: [withAuth, withLayout],
 };
 
-
 export default HOCS_MAP;

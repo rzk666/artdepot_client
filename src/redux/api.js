@@ -30,6 +30,6 @@ export const httpRequestAction = async (action, dispatch, token) => {
     dispatch(success(response.data));
     !loader || dispatch(loader(false));
   } catch (e) {
-    dispatch(e(failure(e)));
+    dispatch((failure(e)));
   }
 };
