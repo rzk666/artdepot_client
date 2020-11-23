@@ -8,7 +8,7 @@ import {
   ISOToShortDate,
 } from '../../libs/helpers';
 // Components
-import { Input } from 'semantic-ui-react';
+import TableTopBar from './TableTopBar';
 import Loader from './Notifications/Loader';
 // Libs
 import classnames from 'classnames';
@@ -25,29 +25,6 @@ const getShortName = (name) => {
   }
   return name;
 };
-
-// ----- Help Components ----- //
-const TableTopBar = ({
-  currentSearch,
-  updateSearch,
-  tableType,
-  isLoading,
-}) => (
-  <div
-    className={styles.top_bar_container}
-  >
-    <div className={styles.search_container}>
-      <Input
-        loading={isLoading}
-        value={currentSearch}
-        onChange={(e) => updateSearch(e.currentTarget.value)}
-        icon="search"
-        placeholder={`חיפוש ${tableType}`}
-      />
-    </div>
-    <div className={styles.filters_container} />
-  </div>
-);
 
 const TableHeaderCell = ({ title, style, key }) => (
   <div key={key} style={{ ...style }} className={styles.table_header_cell}>
@@ -333,9 +310,7 @@ class CustomTable extends Component {
       currentDisplay,
       data,
       fields,
-      // TEST
       isLoading,
-      // TEST
     } = this.props;
     const { currentSearch } = this.state;
     let filteredUsers;
@@ -366,6 +341,7 @@ class CustomTable extends Component {
           currentSearch={currentSearch}
           tableType={currentDisplay}
           updateSearch={(search) => this.updateSearch(search)}
+          {...this.props}
         />
         <Table
           isLoading={isLoading}

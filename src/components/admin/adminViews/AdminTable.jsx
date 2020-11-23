@@ -41,9 +41,7 @@ const AdminTable = (props) => {
   }
   return (
     <CustomTable
-      // TEST
       isLoading={products.isLoading}
-      // TEST
       fetchDataFunction={fetchDataFunction}
       fields={currentFields}
       data={testData}
