@@ -10,16 +10,14 @@ import './global.scss';
 // Semantic UI
 import 'semantic-ui-css/semantic.min.css';
 
-function App() {
-  return (
-    <Router>
-      <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/login" exact component={Login} />
-        <Route path="/admin" exact component={Admin} />
-      </Switch>
-    </Router>
-  );
-}
+const App = () => (
+  <Router>
+    <Switch>
+      <Route path="/" exact component={Home} />
+      <Route path="/login" exact component={Login} />
+      <Route path="/admin" exact component={Admin} />
+    </Switch>
+  </Router>
+);
 
 export default App;

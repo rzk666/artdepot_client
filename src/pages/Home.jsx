@@ -13,7 +13,6 @@ import HomeView from '../views/HomeView';
 // Dictioneries
 import pages from '../universal/pages';
 
-
 const Home = (props) => <HomeController {...props} View={HomeView} />;
 
 const mapStateToProps = (state) => ({

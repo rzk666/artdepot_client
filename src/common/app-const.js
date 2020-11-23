@@ -21,7 +21,7 @@ export const INITIAL_STATE = {
     isLoading: false,
     hasError: false,
     error: '',
-    isLoggedIn: false,
+    isLoggedIn: true,
     token: '1',
     user: {
       role: 'admin',
