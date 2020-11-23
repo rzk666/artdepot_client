@@ -24,7 +24,12 @@ const handleAuthChange = (controllerProps) => {
 
 const LoginController = (props) => {
   const {
-    auth, cookies, refreshAuth, login,
+    auth,
+    cookies,
+    refreshAuth,
+    login,
+    // View Component
+    View,
   } = props;
 
   // ------ Use Effects ----- //
@@ -48,7 +53,6 @@ const LoginController = (props) => {
     login(data);
   };
 
-  const { View } = props;
   return (
     <View
       {...props}
