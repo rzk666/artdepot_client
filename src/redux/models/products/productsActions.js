@@ -24,17 +24,16 @@ export const productsHasError = (error) => ({
   error,
 });
 
-export const fetchProducts = (data) => (({
-  type   : API,
+export const fetchProducts = (type, data) => (({
+  type: API,
   payload: {
     url: {
-      base    : config.api.url,
-      endpoint: '/auth/login/google',
+      base: config.api.url,
+      endpoint: `/variations/options?${type}=${data}`,
     },
-    method : 'post',
-    data,
+    method: 'get',
     success: (data) => getProducts(data),
     failure: (data) => productsHasError(data),
-    loader : (data) => productsIsLoading(data),
+    loader: (data) => productsIsLoading(data),
   },
 }));

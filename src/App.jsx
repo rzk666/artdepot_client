@@ -7,6 +7,8 @@ import Home from './pages/Home';
 import Admin from './pages/Admin';
 // Global Styles
 import './global.scss';
+// Semantic UI
+import 'semantic-ui-css/semantic.min.css';
 
 function App() {
   return (

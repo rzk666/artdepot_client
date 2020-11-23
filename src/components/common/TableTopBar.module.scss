@@ -1,0 +1,22 @@
+// Top Bar Container
+.top_bar_container{
+    width: 98%;
+    height: 75px;
+    display: flex;
+    .search_container{
+        width: 250px;
+        display: flex;
+        justify-content: flex-end;
+        flex-direction: column;
+        padding-bottom: 10px;
+        input{
+            padding-bottom: 15px!important;
+            height: 50px;
+            border-radius: 50px!important;
+        }
+    }
+    .filters_container{
+        flex: 1;
+        background-color: red;
+    }
+}
