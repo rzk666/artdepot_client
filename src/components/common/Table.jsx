@@ -1,5 +1,5 @@
 /* eslint-disable no-new */
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 // Common
 import {
   getEnglishFieldType,
@@ -10,6 +10,8 @@ import {
 // Components
 import TableTopBar from './TableTopBar';
 import Loader from './Notifications/Loader';
+// Custom hooks
+import usePrevious from '../../hooks/usePrevious';
 // Libs
 import classnames from 'classnames';
 // Images
@@ -26,6 +28,7 @@ const getShortName = (name) => {
   return name;
 };
 
+// ----- Help Components ----- //
 const TableHeaderCell = ({ title, style, key }) => (
   <div key={key} style={{ ...style }} className={styles.table_header_cell}>
     {title}
@@ -265,93 +268,84 @@ const Table = ({
   );
 };
 
-class CustomTable extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentSearch: '',
-      currentPage: 1,
-    };
-  }
+// ------ Main Component ------ //
+const CustomTable = (props) => {
+  const {
+    currentDisplay,
+    data,
+    fields,
+    isLoading,
+    fetchDataFunction,
+  } = props;
 
-  componentDidUpdate(prevProps, prevState) {
-    const { currentSearch } = this.state;
-    const { currentDisplay } = this.props;
-    const hasSearchChanged = prevState.currentSearch !== currentSearch;
-    const hasDisplayChanged = currentDisplay !== prevProps.currentDisplay;
-    // Hadnle search changes
-    if (hasSearchChanged && currentDisplay !== 'משתמשים') {
-      this.handleServerSearch();
-    }
-    // Handle display change
-    if (hasDisplayChanged) {
-      this.updateSearch('');
-    }
-  }
+  // ----- State ----- //
+  const [currentSearch, updateSearch] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
 
-  handleServerSearch() {
-    const {
-      fetchDataFunction,
-    } = this.props;
-    const { currentSearch, currentPage } = this.state;
+  // ----- Previous----- //
+  const previousSearch = usePrevious(currentSearch);
+
+  // ----- Callbacks ----- //
+  const handleServerSearch = () => {
     if (currentSearch) {
       fetchDataFunction('search', currentSearch);
-    } else {
-      fetchDataFunction('index', currentPage);
+    } else if (previousSearch) {
+      fetchDataFunction('index', 1);
     }
+  };
+
+  // ----- useEffect ----- //
+  useEffect(() => {
+    if (currentDisplay !== 'משתמשים') {
+      handleServerSearch();
+    }
+  }, [currentSearch]);
+
+  useEffect(() => {
+    if (currentSearch) {
+      updateSearch('');
+    }
+  }, [currentDisplay]);
+
+  let filteredUsers;
+  if (currentDisplay === 'משתמשים') {
+    filteredUsers = data.filter((user) => {
+      const { name, company, id } = user;
+      const formattedSearch = currentSearch.split(' ');
+      if (formattedSearch.length === 1) {
+        return name.includes(currentSearch)
+        || company.includes(currentSearch)
+        || id.toString().includes(currentSearch);
+      }
+      let isFound = true;
+      for (let i = 0; i < formattedSearch.length && isFound; i += 1) {
+        if (!name.includes(formattedSearch[i])
+            && !company.includes(formattedSearch[i])
+            && !id.toString().includes(formattedSearch[i])) {
+          isFound = false;
+        }
+      }
+      return isFound;
+    });
   }
 
-  updateSearch(currentSearch) {
-    this.setState({ currentSearch });
-  }
-
-  render() {
-    const {
-      currentDisplay,
-      data,
-      fields,
-      isLoading,
-    } = this.props;
-    const { currentSearch } = this.state;
-    let filteredUsers;
-    if (currentDisplay === 'משתמשים') {
-      filteredUsers = data.filter((user) => {
-        const { name, company, id } = user;
-        const formattedSearch = currentSearch.split(' ');
-        if (formattedSearch.length === 1) {
-          return name.includes(currentSearch)
-          || company.includes(currentSearch)
-          || id.toString().includes(currentSearch);
-        }
-        let isFound = true;
-        for (let i = 0; i < formattedSearch.length && isFound; i += 1) {
-          if (!name.includes(formattedSearch[i])
-              && !company.includes(formattedSearch[i])
-              && !id.toString().includes(formattedSearch[i])) {
-            isFound = false;
-          }
-        }
-        return isFound;
-      });
-    }
-    return (
-      <>
-        <TableTopBar
-          isLoading={isLoading}
-          currentSearch={currentSearch}
-          tableType={currentDisplay}
-          updateSearch={(search) => this.updateSearch(search)}
-          {...this.props}
-        />
-        <Table
-          isLoading={isLoading}
-          data={filteredUsers || data}
-          type={getEnglishFieldType(currentDisplay)}
-          fields={fields}
-        />
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <TableTopBar
+        isLoading={isLoading}
+        currentSearch={currentSearch}
+        tableType={currentDisplay}
+        updateSearch={(search) => updateSearch(search)}
+        {...props}
+      />
+      <Table
+        isLoading={isLoading}
+        data={filteredUsers || data}
+        type={getEnglishFieldType(currentDisplay)}
+        fields={fields}
+      />
+    </>
+  );
+};
 
 export default CustomTable;
