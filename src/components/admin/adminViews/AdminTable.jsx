@@ -56,6 +56,7 @@ const AdminTable = (props) => {
         isModalOpen={isModalOpen}
         toggleModal={toggleModal}
         tableType={currentDisplay}
+        onApprove={(data) => console.log('DATA WAS SENT TO SERVER')}
       />
     </>
   );
