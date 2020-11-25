@@ -17,6 +17,9 @@
     }
     .filters_container{
         flex: 1;
+        padding: 0 20px;
+        display: flex;
+        align-items: center;
         background-color: red;
     }
 }

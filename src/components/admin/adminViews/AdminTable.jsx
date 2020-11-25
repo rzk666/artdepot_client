@@ -1,6 +1,7 @@
 import React from 'react';
 // Components
 import CustomTable from '../../common/Table';
+import CustomModal from '../CustomModal';
 // Common
 import { ADMIN_TABLE_FIELDS } from '../../../common/app-const';
 // Libs
@@ -19,6 +20,9 @@ const AdminTable = (props) => {
     users,
     products,
     orders,
+    isModalOpen,
+    toggleModal,
+
   } = props;
   const englishType = getEnglishFieldType(currentDisplay);
   let testData;
@@ -40,13 +44,20 @@ const AdminTable = (props) => {
       break;
   }
   return (
-    <CustomTable
-      isLoading={products.isLoading}
-      fetchDataFunction={fetchDataFunction}
-      fields={currentFields}
-      data={testData}
-      {...props}
-    />
+    <>
+      <CustomTable
+        isLoading={products.isLoading}
+        fetchDataFunction={fetchDataFunction}
+        fields={currentFields}
+        data={testData}
+        {...props}
+      />
+      <CustomModal
+        isModalOpen={isModalOpen}
+        toggleModal={toggleModal}
+        tableType={currentDisplay}
+      />
+    </>
   );
 };
 

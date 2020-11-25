@@ -18,6 +18,8 @@ const AdminView = ({
   orders,
   users,
   misc,
+  toggleModal,
+  isModalOpen,
 }) => (
   <div className={styles.wrapper}>
     <AdminNavbar
@@ -35,6 +37,8 @@ const AdminView = ({
       fetchOrders={fetchOrders}
       changeView={changeView}
       currentDisplay={currentDisplay}
+      toggleModal={toggleModal}
+      isModalOpen={isModalOpen}
     />
   </div>
 );

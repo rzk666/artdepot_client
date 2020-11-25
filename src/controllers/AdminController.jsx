@@ -20,6 +20,7 @@ const AdminController = (props) => {
 
   // ----- State ----- //
   const [currentDisplay, setCurrentDisplay] = useState(ADMIN_DISPLAYS.PRODUCTS);
+  const [isModalOpen, toggleModal] = useState(false);
 
   // ----- Callbacks ----- //
   const handleDisplayChange = () => {
@@ -58,6 +59,8 @@ const AdminController = (props) => {
       currentDisplay={currentDisplay}
       changeView={changeView}
       addUser={addNewUser}
+      isModalOpen={isModalOpen}
+      toggleModal={toggleModal}
     />
   );
 };

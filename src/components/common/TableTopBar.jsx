@@ -23,6 +23,8 @@ const TableTopBar = ({
   updateSearch,
   tableType,
   isLoading,
+  toggleModal,
+  isModalOpen,
 }) => (
   <div
     className={styles.top_bar_container}
@@ -37,7 +39,12 @@ const TableTopBar = ({
       />
     </div>
     <div className={styles.filters_container}>
-      {tableType !== 'הזמנות' && <Button>{getButtonText(tableType)}</Button>}
+      {tableType !== 'הזמנות'
+       && (
+       <Button onClick={() => toggleModal(!isModalOpen)}>
+         {getButtonText(tableType)}
+       </Button>
+       )}
     </div>
   </div>
 );
