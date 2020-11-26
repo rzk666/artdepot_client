@@ -4,4 +4,10 @@
   display: flex;
   align-items: center;
   flex-direction: column;
+  .address_inputs{
+    display: flex;
+    width: 80%;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
