@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 // Components
 import { Input, Button } from 'semantic-ui-react';
 import TopLabelInput from '../../common/Inputs/TopLabelInput';
@@ -17,6 +17,7 @@ const initialAddresses = {
 };
 
 const AddUserForm = ({ addNewUser }) => {
+  const [showErrors, toggleShowErrors] = useState(false);
   const formik = useFormik({
     initialValues: {
       id: '',
@@ -25,8 +26,15 @@ const AddUserForm = ({ addNewUser }) => {
       email: '',
       deliveryAddresses: [initialAddresses],
     },
+    validateOnChange: false,
     validate: (values) => {
-      const errors = {};
+      const errors = {
+        id: '',
+        name: '',
+        company: '',
+        email: '',
+        deliveryAddresses: {},
+      };
       const {
         id,
         name,
@@ -34,12 +42,36 @@ const AddUserForm = ({ addNewUser }) => {
         email,
         deliveryAddresses,
       } = values;
+      if (!id) {
+        errors.id = 'Requiered';
+      }
+      if (!name) {
+        errors.name = 'Requiered';
+      }
+      if (!company) {
+        errors.company = 'Requiered';
+      }
+      if (!email) {
+        errors.email = 'Requiered';
+      }
+      // Addressess
+      const { city, address, zipcode } = deliveryAddresses[0];
+      if (!city) {
+        errors.deliveryAddresses.city = 'Requiered';
+      }
+      if (!address) {
+        errors.deliveryAddresses.address = 'Requiered';
+      }
+      if (!zipcode) {
+        errors.deliveryAddresses.zipcode = 'Requiered';
+      }
       return errors;
     },
     onSubmit: (values) => addNewUser(values),
 
   });
   const x = 5;
+  console.log(formik.errors);
   return (
     <div className={styles.user_form_container}>
       <h2> הוספת משתמש חדש</h2>
@@ -134,7 +166,9 @@ const AddUserForm = ({ addNewUser }) => {
           justifyContent: 'center',
           alignItem: 'center',
         }}
-        onClick={formik.handleSubmit}
+        onClick={() => {
+          formik.handleSubmit();
+        }}
       >
         הוסף משתמש
       </Button>
