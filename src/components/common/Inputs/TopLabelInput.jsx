@@ -11,6 +11,7 @@ const TopLabelInput = ({
   value,
   onChange,
   type = 'text',
+  error,
   ...props
 }) => {
   const { fluid, style } = props;
@@ -21,6 +22,7 @@ const TopLabelInput = ({
         :
       </label>
       <Input
+        error={error}
         fluid={fluid}
         placeholder={`הזן ${label}`}
         type={type}

@@ -18,6 +18,18 @@ const initialAddresses = {
   notes: '',
 };
 
+const initialErrors = {
+  city: '',
+  address: '',
+  zipcode: '',
+  notes: '',
+  deliveryAddresses: {
+    city: '',
+    address: '',
+    zipcode: '',
+  },
+};
+
 const AddUserForm = ({ addNewUser }) => {
   const [showErrors, toggleShowErrors] = useState(false);
   const formik = useFormik({
@@ -28,6 +40,7 @@ const AddUserForm = ({ addNewUser }) => {
       email: '',
       deliveryAddresses: [initialAddresses],
     },
+    initialErrors,
     validateOnChange: false,
     validate: (values) => ({
       id: NEW_USER_VALIDATOR.validateId(values.id),
@@ -46,6 +59,7 @@ const AddUserForm = ({ addNewUser }) => {
       <h2> הוספת משתמש חדש</h2>
       <div className={styles.top_inputs}>
         <Input
+          error={formik.errors.id}
           className={styles.styled_input}
           type="number"
           action={false}
@@ -56,6 +70,7 @@ const AddUserForm = ({ addNewUser }) => {
           onChange={formik.handleChange}
         />
         <Input
+          error={formik.errors.name}
           className={styles.styled_input}
           name="name"
           value={formik.values.name}
@@ -64,6 +79,7 @@ const AddUserForm = ({ addNewUser }) => {
           onChange={formik.handleChange}
         />
         <Input
+          error={formik.errors.company}
           className={styles.styled_input}
           name="company"
           value={formik.values.company}
@@ -72,6 +88,7 @@ const AddUserForm = ({ addNewUser }) => {
           onChange={formik.handleChange}
         />
         <Input
+          error={formik.errors.email}
           className={styles.styled_input}
           name="email"
           value={formik.values.email}
@@ -98,18 +115,21 @@ const AddUserForm = ({ addNewUser }) => {
         </Button> */}
         <div className={styles.address_top_row}>
           <TopLabelInput
+            error={formik.errors.deliveryAddresses.city}
             name="deliveryAddresses[0].city"
             value={formik.values.deliveryAddresses[0].city}
             label="עיר"
             onChange={formik.handleChange}
           />
           <TopLabelInput
+            error={formik.errors.deliveryAddresses.address}
             name="deliveryAddresses[0].address"
             value={formik.values.deliveryAddresses[0].address}
             label="כתובת מלאה"
             onChange={formik.handleChange}
           />
           <TopLabelInput
+            error={formik.errors.deliveryAddresses.zipcode}
             name="deliveryAddresses[0].zipcode"
             value={formik.values.deliveryAddresses[0].zipcode}
             label="מיקוד"
