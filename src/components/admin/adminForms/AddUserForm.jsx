@@ -8,14 +8,22 @@ import {
 // Styles
 import styles from './AddUserForm.module.scss';
 
+// ------ Consts & Dicts ------ //
+const initialAddresses = {
+  city: '',
+  address: '',
+  zipcode: '',
+  notes: '',
+};
+
 const AddUserForm = ({ addNewUser }) => {
   const formik = useFormik({
     initialValues: {
-      id: '14124',
+      id: '',
       name: '',
       company: '',
       email: '',
-      deliveryAddresses: [],
+      deliveryAddresses: [initialAddresses],
     },
     onSubmit: (values) => addNewUser(values),
 
@@ -60,31 +68,45 @@ const AddUserForm = ({ addNewUser }) => {
       </div>
       <h2>כתובת למשלוח</h2>
       <div className={styles.address_inputs}>
+        {/* ASK DAD -> Is it relevant?
+        <Button onClick={() => {
+          const currentAddress = formik.values.deliveryAddresses[0];
+          formik.values.deliveryAddresses.push(currentAddress);
+          formik.values.deliveryAddresses[0] = initialAddresses;
+          formik.resetForm({
+            values: formik.values,
+          });
+          console.log(formik.values.deliveryAddresses);
+          console.log(formik.values);
+        }}
+        >
+          ZLADIM
+        </Button> */}
         <div className={styles.address_top_row}>
           <TopLabelInput
-            name="deliveryAddresses"
-            value={formik.values.deliveryAddresses}
+            name="deliveryAddresses[0].city"
+            value={formik.values.deliveryAddresses[0].city}
             label="עיר"
-            onChange={() => console.log('test')}
+            onChange={formik.handleChange}
           />
           <TopLabelInput
-            name="deliveryAddresses"
-            value={formik.values.deliveryAddresses}
+            name="deliveryAddresses[0].address"
+            value={formik.values.deliveryAddresses[0].address}
             label="כתובת מלאה"
-            onChange={() => console.log('test')}
+            onChange={formik.handleChange}
           />
           <TopLabelInput
-            name="deliveryAddresses"
-            value={formik.values.deliveryAddresses}
+            name="deliveryAddresses[0].zipcode"
+            value={formik.values.deliveryAddresses[0].zipcode}
             label="מיקוד"
-            onChange={() => console.log('test')}
+            onChange={formik.handleChange}
           />
         </div>
         <TopLabelInput
-          name="deliveryAddresses"
-          value={formik.values.deliveryAddresses}
+          name="deliveryAddresses[0].notes"
+          value={formik.values.deliveryAddresses[0].notes}
           label="הערות לכתובת"
-          onChange={() => console.log('test')}
+          onChange={formik.handleChange}
           style={{ marginTop: '20px' }}
           fluid
         />
