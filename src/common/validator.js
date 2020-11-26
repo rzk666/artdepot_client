@@ -39,6 +39,6 @@ export const NEW_USER_VALIDATOR = {
     error.city = validateRequired(city);
     error.address = validateRequired(address);
     error.zipcode = validateRequired(zipcode);
-    return error;
+    return [error];
   },
 };

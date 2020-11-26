@@ -12,6 +12,7 @@ const TopLabelInput = ({
   onChange,
   type = 'text',
   error,
+  onBlur,
   ...props
 }) => {
   const { fluid, style } = props;
@@ -22,6 +23,7 @@ const TopLabelInput = ({
         :
       </label>
       <Input
+        onBlur={onBlur}
         error={error}
         fluid={fluid}
         placeholder={`הזן ${label}`}

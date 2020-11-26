@@ -19,15 +19,15 @@ const initialAddresses = {
 };
 
 const initialErrors = {
-  city: '',
-  address: '',
-  zipcode: '',
-  notes: '',
-  deliveryAddresses: {
+  id: '',
+  name: '',
+  company: '',
+  email: '',
+  deliveryAddresses: [{
     city: '',
     address: '',
     zipcode: '',
-  },
+  }],
 };
 
 const AddUserForm = ({ addNewUser }) => {
@@ -41,7 +41,7 @@ const AddUserForm = ({ addNewUser }) => {
       deliveryAddresses: [initialAddresses],
     },
     initialErrors,
-    validateOnChange: false,
+    initialTouched: initialErrors,
     validate: (values) => ({
       id: NEW_USER_VALIDATOR.validateId(values.id),
       name: NEW_USER_VALIDATOR.validateName(values.name),
@@ -59,7 +59,8 @@ const AddUserForm = ({ addNewUser }) => {
       <h2> הוספת משתמש חדש</h2>
       <div className={styles.top_inputs}>
         <Input
-          error={formik.errors.id}
+          onBlur={formik.handleBlur}
+          error={formik.errors.id && formik.touched.id}
           className={styles.styled_input}
           type="number"
           action={false}
@@ -70,7 +71,8 @@ const AddUserForm = ({ addNewUser }) => {
           onChange={formik.handleChange}
         />
         <Input
-          error={formik.errors.name}
+          onBlur={formik.handleBlur}
+          error={formik.errors.name && formik.touched.name}
           className={styles.styled_input}
           name="name"
           value={formik.values.name}
@@ -79,7 +81,8 @@ const AddUserForm = ({ addNewUser }) => {
           onChange={formik.handleChange}
         />
         <Input
-          error={formik.errors.company}
+          onBlur={formik.handleBlur}
+          error={formik.errors.company && formik.touched.company}
           className={styles.styled_input}
           name="company"
           value={formik.values.company}
@@ -88,7 +91,8 @@ const AddUserForm = ({ addNewUser }) => {
           onChange={formik.handleChange}
         />
         <Input
-          error={formik.errors.email}
+          onBlur={formik.handleBlur}
+          error={formik.errors.email && formik.touched.email}
           className={styles.styled_input}
           name="email"
           value={formik.values.email}
@@ -115,21 +119,24 @@ const AddUserForm = ({ addNewUser }) => {
         </Button> */}
         <div className={styles.address_top_row}>
           <TopLabelInput
-            error={formik.errors.deliveryAddresses.city}
+            onBlur={formik.handleBlur}
+            error={formik.errors.deliveryAddresses[0].city && formik.touched.deliveryAddresses[0].city}
             name="deliveryAddresses[0].city"
             value={formik.values.deliveryAddresses[0].city}
             label="עיר"
             onChange={formik.handleChange}
           />
           <TopLabelInput
-            error={formik.errors.deliveryAddresses.address}
+            onBlur={formik.handleBlur}
+            error={formik.errors.deliveryAddresses[0].address && formik.touched.deliveryAddresses[0].address}
             name="deliveryAddresses[0].address"
             value={formik.values.deliveryAddresses[0].address}
             label="כתובת מלאה"
             onChange={formik.handleChange}
           />
           <TopLabelInput
-            error={formik.errors.deliveryAddresses.zipcode}
+            onBlur={formik.handleBlur}
+            error={formik.errors.deliveryAddresses[0].zipcode && formik.touched.deliveryAddresses[0].zipcode}
             name="deliveryAddresses[0].zipcode"
             value={formik.values.deliveryAddresses[0].zipcode}
             label="מיקוד"
