@@ -23,60 +23,85 @@ const AddUserForm = ({ addNewUser }) => {
   const x = 5;
   return (
     <div className={styles.user_form_container}>
-      <Input
-        name="id"
-        value={formik.values.id}
-        label={'ח"פ'}
-        placeholder='הזן מספר לקוח (ח"פ)'
-        onChange={formik.handleChange}
-      />
-      <Input
-        name="name"
-        value={formik.values.name}
-        label="שם מלא"
-        placeholder="הזן שם מלא"
-        onChange={formik.handleChange}
-      />
-      <Input
-        name="company"
-        value={formik.values.company}
-        label="שם חברה"
-        placeholder="הזן שם חברה"
-        onChange={formik.handleChange}
-      />
-      <Input
-        name="email"
-        value={formik.values.email}
-        label="אימייל"
-        placeholder="הזן כתובת אימייל"
-        onChange={formik.handleChange}
-      />
+      <h2> הוספת משתמש חדש</h2>
+      <div className={styles.top_inputs}>
+        <Input
+          className={styles.styled_input}
+          name="id"
+          value={formik.values.id}
+          label={'ח"פ'}
+          placeholder='הזן מספר לקוח (ח"פ)'
+          onChange={formik.handleChange}
+        />
+        <Input
+          className={styles.styled_input}
+          name="name"
+          value={formik.values.name}
+          label="שם מלא"
+          placeholder="הזן שם מלא"
+          onChange={formik.handleChange}
+        />
+        <Input
+          className={styles.styled_input}
+          name="company"
+          value={formik.values.company}
+          label="שם חברה"
+          placeholder="הזן שם חברה"
+          onChange={formik.handleChange}
+        />
+        <Input
+          className={styles.styled_input}
+          name="email"
+          value={formik.values.email}
+          label="אימייל"
+          placeholder="הזן כתובת אימייל"
+          onChange={formik.handleChange}
+        />
+      </div>
       <h2>כתובת למשלוח</h2>
       <div className={styles.address_inputs}>
+        <div className={styles.address_top_row}>
+          <TopLabelInput
+            name="deliveryAddresses"
+            value={formik.values.deliveryAddresses}
+            label="עיר"
+            onChange={() => console.log('test')}
+          />
+          <TopLabelInput
+            name="deliveryAddresses"
+            value={formik.values.deliveryAddresses}
+            label="כתובת מלאה"
+            onChange={() => console.log('test')}
+          />
+          <TopLabelInput
+            name="deliveryAddresses"
+            value={formik.values.deliveryAddresses}
+            label="מיקוד"
+            onChange={() => console.log('test')}
+          />
+        </div>
         <TopLabelInput
           name="deliveryAddresses"
           value={formik.values.deliveryAddresses}
-          label="עיר"
+          label="הערות לכתובת"
           onChange={() => console.log('test')}
-        />
-        <TopLabelInput
-          name="deliveryAddresses"
-          value={formik.values.deliveryAddresses}
-          label="כתובת מלאה"
-          onChange={() => console.log('test')}
-        />
-        <TopLabelInput
-          name="deliveryAddresses"
-          value={formik.values.deliveryAddresses}
-          label="מיקוד"
-          onChange={() => console.log('test')}
+          style={{ marginTop: '20px' }}
+          fluid
         />
       </div>
       <Button
-        style={{ marginTop: 'auto' }}
+        style={{
+          marginTop: 'auto',
+          color: 'white',
+          backgroundColor: 'var(--admin-bg-purple)',
+          width: '125px',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItem: 'center',
+        }}
         onClick={formik.handleSubmit}
       >
-        הוסף
+        הוסף משתמש
       </Button>
     </div>
   );

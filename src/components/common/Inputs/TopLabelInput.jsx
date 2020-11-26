@@ -11,15 +11,17 @@ const TopLabelInput = ({
   value,
   onChange,
   type = 'text',
+  ...props
 }) => {
-  const x = 5;
+  const { fluid, style } = props;
   return (
-    <div className={styles.container}>
+    <div style={style} className={styles.container}>
       <label>
         {label}
         :
       </label>
       <Input
+        fluid={fluid}
         placeholder={`הזן ${label}`}
         type={type}
         name={name}
