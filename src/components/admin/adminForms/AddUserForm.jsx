@@ -5,6 +5,8 @@ import TopLabelInput from '../../common/Inputs/TopLabelInput';
 import {
   useFormik,
 } from 'formik';
+// Libs
+import { NEW_USER_VALIDATOR } from '../../../common/validator';
 // Styles
 import styles from './AddUserForm.module.scss';
 
@@ -27,51 +29,18 @@ const AddUserForm = ({ addNewUser }) => {
       deliveryAddresses: [initialAddresses],
     },
     validateOnChange: false,
-    validate: (values) => {
-      const errors = {
-        id: '',
-        name: '',
-        company: '',
-        email: '',
-        deliveryAddresses: {},
-      };
-      const {
-        id,
-        name,
-        company,
-        email,
-        deliveryAddresses,
-      } = values;
-      if (!id) {
-        errors.id = 'Requiered';
-      }
-      if (!name) {
-        errors.name = 'Requiered';
-      }
-      if (!company) {
-        errors.company = 'Requiered';
-      }
-      if (!email) {
-        errors.email = 'Requiered';
-      }
-      // Addressess
-      const { city, address, zipcode } = deliveryAddresses[0];
-      if (!city) {
-        errors.deliveryAddresses.city = 'Requiered';
-      }
-      if (!address) {
-        errors.deliveryAddresses.address = 'Requiered';
-      }
-      if (!zipcode) {
-        errors.deliveryAddresses.zipcode = 'Requiered';
-      }
-      return errors;
+    validate: (values) => ({
+      id: NEW_USER_VALIDATOR.validateId(values.id),
+      name: NEW_USER_VALIDATOR.validateName(values.name),
+      company: NEW_USER_VALIDATOR.validateCompany(values.company),
+      email: NEW_USER_VALIDATOR.validateEmail(values.email),
+      deliveryAddresses: NEW_USER_VALIDATOR.validateDeliveryAddresses(values.deliveryAddresses),
+    }),
+    onSubmit: (values) => {
+      addNewUser(values);
     },
-    onSubmit: (values) => addNewUser(values),
 
   });
-  const x = 5;
-  console.log(formik.errors);
   return (
     <div className={styles.user_form_container}>
       <h2> הוספת משתמש חדש</h2>
@@ -166,9 +135,7 @@ const AddUserForm = ({ addNewUser }) => {
           justifyContent: 'center',
           alignItem: 'center',
         }}
-        onClick={() => {
-          formik.handleSubmit();
-        }}
+        onClick={formik.handleSubmit}
       >
         הוסף משתמש
       </Button>
