@@ -25,6 +25,17 @@ const AddUserForm = ({ addNewUser }) => {
       email: '',
       deliveryAddresses: [initialAddresses],
     },
+    validate: (values) => {
+      const errors = {};
+      const {
+        id,
+        name,
+        company,
+        email,
+        deliveryAddresses,
+      } = values;
+      return errors;
+    },
     onSubmit: (values) => addNewUser(values),
 
   });
@@ -35,6 +46,8 @@ const AddUserForm = ({ addNewUser }) => {
       <div className={styles.top_inputs}>
         <Input
           className={styles.styled_input}
+          type="number"
+          action={false}
           name="id"
           value={formik.values.id}
           label={'ח"פ'}
