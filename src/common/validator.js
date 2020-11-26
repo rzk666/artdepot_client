@@ -30,7 +30,7 @@ export const NEW_USER_VALIDATOR = {
     return error;
   },
   validateDeliveryAddresses: (deliveryAddress) => {
-    const { city, address, zipcode } = deliveryAddress;
+    const { city, address, zipcode } = deliveryAddress[0];
     const error = {
       city: '',
       address: '',
