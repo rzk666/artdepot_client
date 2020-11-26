@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 // Components
 import { Input, Button } from 'semantic-ui-react';
 import TopLabelInput from '../../common/Inputs/TopLabelInput';
@@ -6,11 +6,17 @@ import {
   useFormik,
 } from 'formik';
 // Libs
-import { NEW_USER_VALIDATOR } from '../../../common/validator';
+import { NEW_USER_VALIDATOR, cleanValidationSchema } from '../../../common/validator';
+import HttpRequest from '../../../util/HttpRequest';
 // Styles
 import styles from './AddUserForm.module.scss';
 
-// ------ Consts & Dicts ------ //
+const addUser = (data) => HttpRequest()({
+  method: 'post',
+  data,
+  url: 'http://185.158.251.51:5010/users',
+});
+
 const initialAddresses = {
   city: '',
   address: '',
@@ -18,7 +24,7 @@ const initialAddresses = {
   notes: '',
 };
 
-const initialErrors = {
+const initialTouched = {
   id: '',
   name: '',
   company: '',
@@ -31,7 +37,6 @@ const initialErrors = {
 };
 
 const AddUserForm = ({ addNewUser }) => {
-  const [showErrors, toggleShowErrors] = useState(false);
   const formik = useFormik({
     initialValues: {
       id: '',
@@ -40,23 +45,33 @@ const AddUserForm = ({ addNewUser }) => {
       email: '',
       deliveryAddresses: [initialAddresses],
     },
-    initialErrors,
-    initialTouched: initialErrors,
-    validate: (values) => ({
-      id: NEW_USER_VALIDATOR.validateId(values.id),
-      name: NEW_USER_VALIDATOR.validateName(values.name),
-      company: NEW_USER_VALIDATOR.validateCompany(values.company),
-      email: NEW_USER_VALIDATOR.validateEmail(values.email),
-      deliveryAddresses: NEW_USER_VALIDATOR.validateDeliveryAddresses(values.deliveryAddresses),
-    }),
-    onSubmit: (values) => {
-      addNewUser(values);
+    initialTouched,
+    validate: (values) => {
+      const errors = {
+        id: NEW_USER_VALIDATOR.validateId(values.id),
+        name: NEW_USER_VALIDATOR.validateName(values.name),
+        company: NEW_USER_VALIDATOR.validateCompany(values.company),
+        email: NEW_USER_VALIDATOR.validateEmail(values.email),
+        deliveryAddresses: NEW_USER_VALIDATOR.validateDeliveryAddresses(values.deliveryAddresses),
+      };
+      const cleanedErrors = cleanValidationSchema(errors);
+      return cleanedErrors;
+    },
+    onSubmit: async (values) => {
+      console.log('IM RUNNING');
+      try {
+        await addUser(values);
+        console.log('SUCESS');
+      } catch (e) {
+        console.log(e);
+      }
+    //   addNewUser(values);
     },
 
   });
   return (
     <div className={styles.user_form_container}>
-      <h2> הוספת משתמש חדש</h2>
+      <h2>הוספת משתמש חדש</h2>
       <div className={styles.top_inputs}>
         <Input
           onBlur={formik.handleBlur}
@@ -120,7 +135,7 @@ const AddUserForm = ({ addNewUser }) => {
         <div className={styles.address_top_row}>
           <TopLabelInput
             onBlur={formik.handleBlur}
-            error={formik.errors.deliveryAddresses[0].city && formik.touched.deliveryAddresses[0].city}
+            error={formik.errors.deliveryAddresses && formik.errors.deliveryAddresses[0].city && formik.touched.deliveryAddresses[0].city}
             name="deliveryAddresses[0].city"
             value={formik.values.deliveryAddresses[0].city}
             label="עיר"
@@ -128,7 +143,7 @@ const AddUserForm = ({ addNewUser }) => {
           />
           <TopLabelInput
             onBlur={formik.handleBlur}
-            error={formik.errors.deliveryAddresses[0].address && formik.touched.deliveryAddresses[0].address}
+            error={formik.errors.deliveryAddresses && formik.errors.deliveryAddresses[0].address && formik.touched.deliveryAddresses[0].address}
             name="deliveryAddresses[0].address"
             value={formik.values.deliveryAddresses[0].address}
             label="כתובת מלאה"
@@ -136,7 +151,7 @@ const AddUserForm = ({ addNewUser }) => {
           />
           <TopLabelInput
             onBlur={formik.handleBlur}
-            error={formik.errors.deliveryAddresses[0].zipcode && formik.touched.deliveryAddresses[0].zipcode}
+            error={formik.errors.deliveryAddresses && formik.errors.deliveryAddresses[0].zipcode && formik.touched.deliveryAddresses[0].zipcode}
             name="deliveryAddresses[0].zipcode"
             value={formik.values.deliveryAddresses[0].zipcode}
             label="מיקוד"
@@ -162,6 +177,7 @@ const AddUserForm = ({ addNewUser }) => {
           justifyContent: 'center',
           alignItem: 'center',
         }}
+        type="submit"
         onClick={formik.handleSubmit}
       >
         הוסף משתמש
