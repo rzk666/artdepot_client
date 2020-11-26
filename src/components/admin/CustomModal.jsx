@@ -4,6 +4,8 @@ import { Modal } from 'semantic-ui-react';
 import AddUserForm from './adminForms/AddUserForm';
 // Images
 import Cancel from '../../static/images/icons/cancel.png';
+// Libs
+import classnames from 'classnames';
 // Styles
 import styles from './CustomModal.module.scss';
 
@@ -15,7 +17,7 @@ const CustomModal = ({
     <Modal open={isModalOpen} className={styles.modal}>
       <img
         src={Cancel}
-        className={styles.cancel}
+        className={classnames(styles.cancel, 'hover_animation')}
         onClick={() => toggleModal(false)}
         alt="סגור חלון"
       />
