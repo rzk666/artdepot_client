@@ -10,7 +10,6 @@ import {
 import { NEW_USER_VALIDATOR, cleanValidationSchema } from '../../../common/validator';
 // Styles
 import styles from './AddUserForm.module.scss';
-import { sleep } from '../../../libs/helpers';
 
 const initialAddresses = {
   city: '',
