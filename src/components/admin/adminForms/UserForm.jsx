@@ -39,17 +39,9 @@ const initialTouched = {
   }],
 };
 
-const UserForm = ({ onSubmit, data = '' }) => {
-  const [submittionError, setError] = useState('');
-  useEffect(() => {
-    if (submittionError) {
-      setTimeout(() => {
-        setError('');
-      }, 3000);
-    }
-  },
-  [submittionError]);
-
+const UserForm = ({
+  setError, onSubmit, data = '',
+}) => {
   const formik = useFormik({
     initialValues: data || initialValues,
     initialTouched,
@@ -76,7 +68,6 @@ const UserForm = ({ onSubmit, data = '' }) => {
   });
   return (
     <div className={styles.user_form_container}>
-      <WithFormState />
       <h2>הוספת משתמש חדש</h2>
       <div className={styles.top_inputs}>
         <Input

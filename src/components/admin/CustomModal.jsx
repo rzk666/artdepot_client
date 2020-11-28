@@ -11,21 +11,18 @@ import styles from './CustomModal.module.scss';
 
 const CustomModal = ({
   isModalOpen, toggleModal, tableType, onApprove,
-}) => {
-  const x = 5;
-  return (
-    <Modal open={isModalOpen} className={styles.modal}>
-      <img
-        src={Cancel}
-        className={classnames(styles.cancel, 'hover_animation')}
-        onClick={() => toggleModal(false)}
-        alt="סגור חלון"
-      />
-      <div className={styles.custom_modal_container}>
-        { tableType === 'משתמשים' && <UserForm addNewUser={(values) => onApprove((values))} />}
-      </div>
-    </Modal>
-  );
-};
+}) => (
+  <Modal open={isModalOpen} className={styles.modal}>
+    <img
+      src={Cancel}
+      className={classnames(styles.cancel, 'hover_animation')}
+      onClick={() => toggleModal(false)}
+      alt="סגור חלון"
+    />
+    <div className={styles.custom_modal_container}>
+      { tableType === 'משתמשים' && <UserForm onSubmit={(values) => onApprove((values))} />}
+    </div>
+  </Modal>
+);
 
 export default CustomModal;
