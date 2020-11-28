@@ -10,12 +10,21 @@ import {
 import { NEW_USER_VALIDATOR, cleanValidationSchema } from '../../../common/validator';
 // Styles
 import styles from './AddUserForm.module.scss';
+import { sleep } from '../../../libs/helpers';
 
 const initialAddresses = {
   city: '',
   address: '',
   zipcode: '',
   notes: '',
+};
+
+const initialValues = {
+  id: '',
+  name: '',
+  company: '',
+  email: '',
+  deliveryAddresses: [initialAddresses],
 };
 
 const initialTouched = {
@@ -42,13 +51,7 @@ const AddUserForm = ({ addNewUser }) => {
   [submittionError]);
 
   const formik = useFormik({
-    initialValues: {
-      id: '',
-      name: '',
-      company: '',
-      email: '',
-      deliveryAddresses: [initialAddresses],
-    },
+    initialValues,
     initialTouched,
     validate: (values) => {
       const errors = {
@@ -61,11 +64,11 @@ const AddUserForm = ({ addNewUser }) => {
       const cleanedErrors = cleanValidationSchema(errors);
       return cleanedErrors;
     },
-    onSubmit: async (values) => {
-      setError('בדיקה');
-      console.log(values);
+    onSubmit: async (values, formikProps) => {
+      const { resetForm } = formikProps;
       try {
         await addNewUser(values);
+        resetForm(initialValues);
       } catch (e) {
         setError(e);
       }
