@@ -1,7 +1,7 @@
 import React from 'react';
 // Componenets
 import { Modal } from 'semantic-ui-react';
-import AddUserForm from './adminForms/AddUserForm';
+import UserForm from './adminForms/UserForm';
 // Images
 import Cancel from '../../static/images/icons/cancel.png';
 // Libs
@@ -22,7 +22,7 @@ const CustomModal = ({
         alt="סגור חלון"
       />
       <div className={styles.custom_modal_container}>
-        { tableType === 'משתמשים' && <AddUserForm addNewUser={(values) => onApprove((values))} />}
+        { tableType === 'משתמשים' && <UserForm addNewUser={(values) => onApprove((values))} />}
       </div>
     </Modal>
   );

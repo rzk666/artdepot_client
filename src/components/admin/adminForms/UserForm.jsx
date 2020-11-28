@@ -5,10 +5,12 @@ import TopLabelInput from '../../common/Inputs/TopLabelInput';
 import {
   useFormik,
 } from 'formik';
+// HOCs
+import WithFormState from '../../../hocs/Forms/withFormState';
 // Libs
 import { NEW_USER_VALIDATOR, cleanValidationSchema } from '../../../common/validator';
 // Styles
-import styles from './AddUserForm.module.scss';
+import styles from './UserForm.module.scss';
 
 const initialAddresses = {
   city: '',
@@ -74,6 +76,7 @@ const UserForm = ({ onSubmit, data = '' }) => {
   });
   return (
     <div className={styles.user_form_container}>
+      <WithFormState />
       <h2>הוספת משתמש חדש</h2>
       <div className={styles.top_inputs}>
         <Input
@@ -192,4 +195,4 @@ const UserForm = ({ onSubmit, data = '' }) => {
   );
 };
 
-export default UserForm;
+export default WithFormState(UserForm);
