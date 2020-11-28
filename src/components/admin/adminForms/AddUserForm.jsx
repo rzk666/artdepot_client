@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // Components
+import FormErrorMessage from './FormErrorMessage';
 import { Input, Button } from 'semantic-ui-react';
 import TopLabelInput from '../../common/Inputs/TopLabelInput';
 import {
@@ -7,7 +8,6 @@ import {
 } from 'formik';
 // Libs
 import { NEW_USER_VALIDATOR, cleanValidationSchema } from '../../../common/validator';
-import { sleep } from '../../../libs/helpers';
 // Styles
 import styles from './AddUserForm.module.scss';
 
@@ -31,6 +31,16 @@ const initialTouched = {
 };
 
 const AddUserForm = ({ addNewUser }) => {
+  const [submittionError, setError] = useState('');
+  useEffect(() => {
+    if (submittionError) {
+      setTimeout(() => {
+        setError('');
+      }, 3000);
+    }
+  },
+  [submittionError]);
+
   const formik = useFormik({
     initialValues: {
       id: '',
@@ -52,13 +62,14 @@ const AddUserForm = ({ addNewUser }) => {
       return cleanedErrors;
     },
     onSubmit: async (values) => {
+      setError('בדיקה');
+      console.log(values);
       try {
         await addNewUser(values);
       } catch (e) {
-        console.log(e);
+        setError(e);
       }
     },
-
   });
   return (
     <div className={styles.user_form_container}>
@@ -141,6 +152,7 @@ const AddUserForm = ({ addNewUser }) => {
             onChange={formik.handleChange}
           />
           <TopLabelInput
+            type="number"
             onBlur={formik.handleBlur}
             error={formik.errors.deliveryAddresses && formik.errors.deliveryAddresses[0].zipcode && formik.touched.deliveryAddresses[0].zipcode}
             name="deliveryAddresses[0].zipcode"
@@ -175,6 +187,7 @@ const AddUserForm = ({ addNewUser }) => {
       >
         הוסף משתמש
       </Button>
+      <FormErrorMessage message={submittionError} />
     </div>
   );
 };

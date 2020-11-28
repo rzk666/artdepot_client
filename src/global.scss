@@ -44,6 +44,18 @@ html{
         margin:0;
         height:100%;
     }
+
+    // Inputs
+    input[type=number]{
+        -moz-appearance: textfield;
+      }
+      input[type=number]::-webkit-inner-spin-button{
+        -webkit-appearance: none;
+      }
+      input[type=number]::-webkit-outer-spin-button{
+        -webkit-appearance: none;
+      }
+
     // Buttons
     .login-btn{
         width: 60%;
