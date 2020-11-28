@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 // Components
 import { Input, Button } from 'semantic-ui-react';
 import TopLabelInput from '../../common/Inputs/TopLabelInput';
@@ -7,6 +7,7 @@ import {
 } from 'formik';
 // Libs
 import { NEW_USER_VALIDATOR, cleanValidationSchema } from '../../../common/validator';
+import { sleep } from '../../../libs/helpers';
 // Styles
 import styles from './AddUserForm.module.scss';
 
@@ -158,6 +159,8 @@ const AddUserForm = ({ addNewUser }) => {
         />
       </div>
       <Button
+        loading={formik.isSubmitting}
+        disabled={formik.isSubmitting}
         style={{
           marginTop: 'auto',
           color: 'white',
