@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 // Components
+import FormErrorMessage from './FormErrorMessage';
 import { Input, Button } from 'semantic-ui-react';
 import TopLabelInput from '../../common/Inputs/TopLabelInput';
 import {
@@ -22,7 +23,7 @@ const initialValues = {
   name: '',
   company: '',
   email: '',
-  delivery_addresses: [initialAddresses],
+  deliveryAddresses: [initialAddresses],
 };
 
 const initialTouched = {
@@ -30,14 +31,14 @@ const initialTouched = {
   name: '',
   company: '',
   email: '',
-  delivery_addresses: [{
+  deliveryAddresses: [{
     city: '',
     address: '',
     zipcode: '',
   }],
 };
 
-const UserForm = ({ onSubmit, data = '' }) => {
+const AddProductForm = ({ addNewUser }) => {
   const [submittionError, setError] = useState('');
   useEffect(() => {
     if (submittionError) {
@@ -49,7 +50,7 @@ const UserForm = ({ onSubmit, data = '' }) => {
   [submittionError]);
 
   const formik = useFormik({
-    initialValues: data || initialValues,
+    initialValues,
     initialTouched,
     validate: (values) => {
       const errors = {
@@ -57,7 +58,7 @@ const UserForm = ({ onSubmit, data = '' }) => {
         name: NEW_USER_VALIDATOR.validateName(values.name),
         company: NEW_USER_VALIDATOR.validateCompany(values.company),
         email: NEW_USER_VALIDATOR.validateEmail(values.email),
-        delivery_addresses: NEW_USER_VALIDATOR.validateDeliveryAddresses(values.delivery_addresses),
+        deliveryAddresses: NEW_USER_VALIDATOR.validateDeliveryAddresses(values.deliveryAddresses),
       };
       const cleanedErrors = cleanValidationSchema(errors);
       return cleanedErrors;
@@ -65,7 +66,7 @@ const UserForm = ({ onSubmit, data = '' }) => {
     onSubmit: async (values, formikProps) => {
       const { resetForm } = formikProps;
       try {
-        await onSubmit(values);
+        await addNewUser(values);
         resetForm(initialValues);
       } catch (e) {
         setError(e);
@@ -123,13 +124,13 @@ const UserForm = ({ onSubmit, data = '' }) => {
       <div className={styles.address_inputs}>
         {/* ASK DAD -> Is it relevant?
         <Button onClick={() => {
-          const currentAddress = formik.values.delivery_addresses[0];
-          formik.values.delivery_addresses.push(currentAddress);
-          formik.values.delivery_addresses[0] = initialAddresses;
+          const currentAddress = formik.values.deliveryAddresses[0];
+          formik.values.deliveryAddresses.push(currentAddress);
+          formik.values.deliveryAddresses[0] = initialAddresses;
           formik.resetForm({
             values: formik.values,
           });
-          console.log(formik.values.delivery_addresses);
+          console.log(formik.values.deliveryAddresses);
           console.log(formik.values);
         }}
         >
@@ -138,33 +139,33 @@ const UserForm = ({ onSubmit, data = '' }) => {
         <div className={styles.address_top_row}>
           <TopLabelInput
             onBlur={formik.handleBlur}
-            error={formik.errors.delivery_addresses && formik.errors.delivery_addresses[0].city && formik.touched.delivery_addresses[0].city}
-            name="delivery_addresses[0].city"
-            value={formik.values.delivery_addresses[0].city}
+            error={formik.errors.deliveryAddresses && formik.errors.deliveryAddresses[0].city && formik.touched.deliveryAddresses[0].city}
+            name="deliveryAddresses[0].city"
+            value={formik.values.deliveryAddresses[0].city}
             label="עיר"
             onChange={formik.handleChange}
           />
           <TopLabelInput
             onBlur={formik.handleBlur}
-            error={formik.errors.delivery_addresses && formik.errors.delivery_addresses[0].address && formik.touched.delivery_addresses[0].address}
-            name="delivery_addresses[0].address"
-            value={formik.values.delivery_addresses[0].address}
+            error={formik.errors.deliveryAddresses && formik.errors.deliveryAddresses[0].address && formik.touched.deliveryAddresses[0].address}
+            name="deliveryAddresses[0].address"
+            value={formik.values.deliveryAddresses[0].address}
             label="כתובת מלאה"
             onChange={formik.handleChange}
           />
           <TopLabelInput
             type="number"
             onBlur={formik.handleBlur}
-            error={formik.errors.delivery_addresses && formik.errors.delivery_addresses[0].zipcode && formik.touched.delivery_addresses[0].zipcode}
-            name="delivery_addresses[0].zipcode"
-            value={formik.values.delivery_addresses[0].zipcode}
+            error={formik.errors.deliveryAddresses && formik.errors.deliveryAddresses[0].zipcode && formik.touched.deliveryAddresses[0].zipcode}
+            name="deliveryAddresses[0].zipcode"
+            value={formik.values.deliveryAddresses[0].zipcode}
             label="מיקוד"
             onChange={formik.handleChange}
           />
         </div>
         <TopLabelInput
-          name="delivery_addresses[0].notes"
-          value={formik.values.delivery_addresses[0].notes}
+          name="deliveryAddresses[0].notes"
+          value={formik.values.deliveryAddresses[0].notes}
           label="הערות לכתובת"
           onChange={formik.handleChange}
           style={{ marginTop: '20px' }}
@@ -188,8 +189,9 @@ const UserForm = ({ onSubmit, data = '' }) => {
       >
         הוסף משתמש
       </Button>
+      <FormErrorMessage message={submittionError} />
     </div>
   );
 };
 
-export default UserForm;
+export default AddProductForm;
