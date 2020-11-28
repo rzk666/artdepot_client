@@ -22,7 +22,7 @@ const CustomModal = ({
         alt="סגור חלון"
       />
       <div className={styles.custom_modal_container}>
-        { tableType === 'משתמשים' && <AddUserForm addNewUser={(values) => console.log((values))} />}
+        { tableType === 'משתמשים' && <AddUserForm addNewUser={(values) => onApprove((values))} />}
       </div>
     </Modal>
   );

@@ -7,15 +7,8 @@ import {
 } from 'formik';
 // Libs
 import { NEW_USER_VALIDATOR, cleanValidationSchema } from '../../../common/validator';
-import HttpRequest from '../../../util/HttpRequest';
 // Styles
 import styles from './AddUserForm.module.scss';
-
-const addUser = (data) => HttpRequest()({
-  method: 'post',
-  data,
-  url: 'http://185.158.251.51:5010/users',
-});
 
 const initialAddresses = {
   city: '',
@@ -58,14 +51,11 @@ const AddUserForm = ({ addNewUser }) => {
       return cleanedErrors;
     },
     onSubmit: async (values) => {
-      console.log('IM RUNNING');
       try {
-        await addUser(values);
-        console.log('SUCESS');
+        await addNewUser(values);
       } catch (e) {
         console.log(e);
       }
-    //   addNewUser(values);
     },
 
   });
