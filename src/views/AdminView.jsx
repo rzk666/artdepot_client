@@ -20,6 +20,7 @@ const AdminView = ({
   misc,
   toggleModal,
   isModalOpen,
+  addNotification,
 }) => (
   <div className={styles.wrapper}>
     <AdminNavbar
@@ -28,6 +29,7 @@ const AdminView = ({
       currentDisplay={currentDisplay}
     />
     <AdminCurrentView
+      addNotification={addNotification}
       products={products}
       orders={orders}
       users={users}

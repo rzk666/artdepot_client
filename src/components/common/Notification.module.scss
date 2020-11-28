@@ -1,0 +1,17 @@
+.notification{
+    height: 50px;
+    width: 300px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    &.error{
+        background-color: var(--error);
+    }
+    &.success{
+        background-color: var(--success);
+    }
+    &.info{
+        background-color: var(--info);
+    }
+}

@@ -40,7 +40,7 @@ const initialTouched = {
 };
 
 const UserForm = ({
-  setError, onSubmit, data = '',
+  setError, onSubmit, data = '', addNotification,
 }) => {
   const formik = useFormik({
     initialValues: data || initialValues,
@@ -60,9 +60,11 @@ const UserForm = ({
       const { resetForm } = formikProps;
       try {
         await onSubmit(values);
+        addNotification({ type: 'success', message: 'משתמש נוסף בהצלחה' });
         resetForm(initialValues);
       } catch (e) {
         setError(e);
+        addNotification({ type: 'error', message: 'תקלה בשרת, נסו שוב או צרו קשר עם רזי' });
       }
     },
   });

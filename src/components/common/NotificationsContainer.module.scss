@@ -1,0 +1,9 @@
+.notifications_container{
+    position: fixed;
+    left: 15px;
+    bottom: 15px;
+    display: flex;
+    flex-direction: column-reverse;
+    z-index: 1001;
+    color: white;
+}

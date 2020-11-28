@@ -22,7 +22,7 @@ const AdminTable = (props) => {
     orders,
     isModalOpen,
     toggleModal,
-
+    addNotification,
   } = props;
   const englishType = getEnglishFieldType(currentDisplay);
   let testData;
@@ -53,6 +53,7 @@ const AdminTable = (props) => {
         {...props}
       />
       <CustomModal
+        addNotification={addNotification}
         isModalOpen={isModalOpen}
         toggleModal={toggleModal}
         tableType={currentDisplay}

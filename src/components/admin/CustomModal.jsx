@@ -10,7 +10,11 @@ import classnames from 'classnames';
 import styles from './CustomModal.module.scss';
 
 const CustomModal = ({
-  isModalOpen, toggleModal, tableType, onApprove,
+  isModalOpen,
+  toggleModal,
+  tableType,
+  onApprove,
+  addNotification,
 }) => (
   <Modal open={isModalOpen} className={styles.modal}>
     <img
@@ -20,7 +24,7 @@ const CustomModal = ({
       alt="סגור חלון"
     />
     <div className={styles.custom_modal_container}>
-      { tableType === 'משתמשים' && <UserForm onSubmit={(values) => onApprove((values))} />}
+      { tableType === 'משתמשים' && <UserForm addNotification={addNotification} onSubmit={(values) => onApprove((values))} />}
     </div>
   </Modal>
 );
