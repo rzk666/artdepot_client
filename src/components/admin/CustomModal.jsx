@@ -15,6 +15,7 @@ const CustomModal = ({
   tableType,
   onApprove,
   addNotification,
+  currentModalData,
 }) => (
   <Modal open={isModalOpen} className={styles.modal}>
     <img
@@ -24,7 +25,13 @@ const CustomModal = ({
       alt="סגור חלון"
     />
     <div className={styles.custom_modal_container}>
-      { tableType === 'משתמשים' && <UserForm addNotification={addNotification} onSubmit={(values) => onApprove((values))} />}
+      { tableType === 'משתמשים' && (
+      <UserForm
+        addNotification={addNotification}
+        onSubmit={(values) => onApprove((values))}
+        currentModalData={currentModalData}
+      />
+      )}
     </div>
   </Modal>
 );

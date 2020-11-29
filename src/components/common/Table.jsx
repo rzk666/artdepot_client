@@ -49,7 +49,7 @@ const TableCell = ({
 };
 
 const Table = ({
-  type, fields, data, isLoading,
+  type, fields, data, isLoading, isModalOpen, toggleModal, setModalData,
 }) => {
   const TableBody = () => {
     if (type === 'products') {
@@ -127,6 +127,10 @@ const Table = ({
             const { city, address } = delivery_addresses[0];
             return (
               <div
+                onClick={() => {
+                  toggleModal(!isModalOpen);
+                  setModalData(user);
+                }}
                 style={{ height: '50px' }}
                 className={styles.table_row}
               >
@@ -276,6 +280,9 @@ const CustomTable = (props) => {
     fields,
     isLoading,
     fetchDataFunction,
+    isModalOpen,
+    toggleModal,
+    setModalData,
   } = props;
 
   // ----- State ----- //
@@ -343,6 +350,9 @@ const CustomTable = (props) => {
         data={filteredUsers || data}
         type={getEnglishFieldType(currentDisplay)}
         fields={fields}
+        isModalOpen={isModalOpen}
+        toggleModal={toggleModal}
+        setModalData={setModalData}
       />
     </>
   );

@@ -40,7 +40,7 @@ const initialTouched = {
 };
 
 const UserForm = ({
-  setError, onSubmit, data = '', addNotification,
+  setError, onSubmit, data = '', addNotification, currentModalData
 }) => {
   const formik = useFormik({
     initialValues: data || initialValues,

@@ -23,6 +23,7 @@ const AdminTable = (props) => {
     isModalOpen,
     toggleModal,
     addNotification,
+    currentModalData,
   } = props;
   const englishType = getEnglishFieldType(currentDisplay);
   let testData;
@@ -58,6 +59,7 @@ const AdminTable = (props) => {
         toggleModal={toggleModal}
         tableType={currentDisplay}
         onApprove={(data) => console.log('DATA WAS SENT TO SERVER')}
+        currentModalData={currentModalData}
       />
     </>
   );
