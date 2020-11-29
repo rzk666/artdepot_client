@@ -24,6 +24,8 @@ const AdminTable = (props) => {
     toggleModal,
     addNotification,
     currentModalData,
+    setEditMode,
+    isEditMode,
   } = props;
   const englishType = getEnglishFieldType(currentDisplay);
   let testData;
@@ -60,6 +62,8 @@ const AdminTable = (props) => {
         tableType={currentDisplay}
         onApprove={(data) => console.log('DATA WAS SENT TO SERVER')}
         currentModalData={currentModalData}
+        isEditMode={isEditMode}
+        setEditMode={setEditMode}
       />
     </>
   );

@@ -16,6 +16,8 @@ const CustomModal = ({
   onApprove,
   addNotification,
   currentModalData,
+  isEditMode,
+  setEditMode,
 }) => (
   <Modal open={isModalOpen} className={styles.modal}>
     <img
@@ -30,6 +32,8 @@ const CustomModal = ({
         addNotification={addNotification}
         onSubmit={(values) => onApprove((values))}
         currentModalData={currentModalData}
+        isEditMode={isEditMode}
+        setEditMode={setEditMode}
       />
       )}
     </div>

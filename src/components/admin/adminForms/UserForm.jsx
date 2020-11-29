@@ -40,10 +40,15 @@ const initialTouched = {
 };
 
 const UserForm = ({
-  setError, onSubmit, data = '', addNotification, currentModalData
+  setError,
+  onSubmit,
+  addNotification,
+  currentModalData,
+  isEditMode,
+  setEditMode,
 }) => {
   const formik = useFormik({
-    initialValues: data || initialValues,
+    initialValues: currentModalData || initialValues,
     initialTouched,
     validate: (values) => {
       const errors = {
@@ -182,7 +187,7 @@ const UserForm = ({
         type="submit"
         onClick={formik.handleSubmit}
       >
-        הוסף משתמש
+        {isEditMode ? 'עדכן פרטים' : 'הוסף משתמש'}
       </Button>
     </div>
   );

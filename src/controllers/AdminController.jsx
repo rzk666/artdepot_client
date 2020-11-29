@@ -22,6 +22,7 @@ const AdminController = (props) => {
   const [currentDisplay, setCurrentDisplay] = useState(ADMIN_DISPLAYS.USERS);
   const [isModalOpen, toggleModal] = useState(false);
   const [currentModalData, setModalData] = useState('');
+  const [isEditMode, setEditMode] = useState(false);
 
   // ----- Callbacks ----- //
   const handleDisplayChange = () => {
@@ -64,6 +65,8 @@ const AdminController = (props) => {
       toggleModal={toggleModal}
       currentModalData={currentModalData}
       setModalData={setModalData}
+      isEditMode={isEditMode}
+      setEditMode={setEditMode}
     />
   );
 };

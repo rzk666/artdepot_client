@@ -23,6 +23,8 @@ const AdminView = ({
   addNotification,
   currentModalData,
   setModalData,
+  isEditMode,
+  setEditMode,
 }) => (
   <div className={styles.wrapper}>
     <AdminNavbar
@@ -45,6 +47,8 @@ const AdminView = ({
       isModalOpen={isModalOpen}
       currentModalData={currentModalData}
       setModalData={setModalData}
+      isEditMode={isEditMode}
+      setEditMode={setEditMode}
     />
   </div>
 );

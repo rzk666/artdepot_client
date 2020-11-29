@@ -49,7 +49,15 @@ const TableCell = ({
 };
 
 const Table = ({
-  type, fields, data, isLoading, isModalOpen, toggleModal, setModalData,
+  type,
+  fields,
+  data,
+  isLoading,
+  isModalOpen,
+  toggleModal,
+  setModalData,
+  isEditMode,
+  setEditMode,
 }) => {
   const TableBody = () => {
     if (type === 'products') {
@@ -130,6 +138,7 @@ const Table = ({
                 onClick={() => {
                   toggleModal(!isModalOpen);
                   setModalData(user);
+                  setEditMode(true);
                 }}
                 style={{ height: '50px' }}
                 className={styles.table_row}
@@ -283,6 +292,8 @@ const CustomTable = (props) => {
     isModalOpen,
     toggleModal,
     setModalData,
+    isEditMode,
+    setEditMode,
   } = props;
 
   // ----- State ----- //
@@ -353,6 +364,8 @@ const CustomTable = (props) => {
         isModalOpen={isModalOpen}
         toggleModal={toggleModal}
         setModalData={setModalData}
+        setEditMode={setEditMode}
+        isEditMode={isEditMode}
       />
     </>
   );

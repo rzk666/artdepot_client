@@ -25,6 +25,9 @@ const TableTopBar = ({
   isLoading,
   toggleModal,
   isModalOpen,
+  setModalData,
+  setEditMode,
+  isEditMode,
 }) => (
   <div
     className={styles.top_bar_container}
@@ -41,7 +44,12 @@ const TableTopBar = ({
     <div className={styles.filters_container}>
       {tableType !== 'הזמנות'
        && (
-       <Button onClick={() => toggleModal(!isModalOpen)}>
+       <Button onClick={() => {
+         toggleModal(!isModalOpen);
+         setModalData('');
+         setEditMode(false);
+       }}
+       >
          {getButtonText(tableType)}
        </Button>
        )}
