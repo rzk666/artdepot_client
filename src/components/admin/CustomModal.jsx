@@ -34,6 +34,7 @@ const CustomModal = ({
         currentModalData={currentModalData}
         isEditMode={isEditMode}
         setEditMode={setEditMode}
+        toggleModal={toggleModal}
       />
       )}
     </div>

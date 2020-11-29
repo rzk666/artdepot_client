@@ -46,6 +46,7 @@ const UserForm = ({
   currentModalData,
   isEditMode,
   setEditMode,
+  toggleModal,
 }) => {
   const formik = useFormik({
     initialValues: currentModalData || initialValues,
@@ -62,14 +63,27 @@ const UserForm = ({
       return cleanedErrors;
     },
     onSubmit: async (values, formikProps) => {
-      const { resetForm } = formikProps;
-      try {
-        await onSubmit(values);
-        addNotification({ type: 'success', message: 'משתמש נוסף בהצלחה' });
-        resetForm(initialValues);
-      } catch (e) {
-        setError(e);
-        addNotification({ type: 'error', message: 'תקלה בשרת, נסו שוב או צרו קשר עם רזי' });
+      if (isEditMode === false) {
+        const { resetForm } = formikProps;
+        try {
+          await onSubmit(values);
+          addNotification({ type: 'success', message: 'משתמש נוסף בהצלחה' });
+          resetForm(initialValues);
+        } catch (e) {
+          setError(e);
+          addNotification({ type: 'error', message: 'תקלה בשרת, נסו שוב או צרו קשר עם רזי' });
+        }
+      } else {
+        const { resetForm } = formikProps;
+        try {
+          await onSubmit(values);
+          addNotification({ type: 'success', message: 'משתמש נערך בהצלחה' });
+          resetForm(initialValues);
+          toggleModal(false);
+        } catch (e) {
+          setError(e);
+          addNotification({ type: 'error', message: 'תקלה בשרת, נסו שוב או צרו קשר עם רזי' });
+        }
       }
     },
   });
