@@ -63,8 +63,8 @@ const UserForm = ({
       return cleanedErrors;
     },
     onSubmit: async (values, formikProps) => {
+      const { resetForm } = formikProps;
       if (isEditMode === false) {
-        const { resetForm } = formikProps;
         try {
           await onSubmit(values);
           addNotification({ type: 'success', message: 'משתמש נוסף בהצלחה' });
@@ -74,7 +74,6 @@ const UserForm = ({
           addNotification({ type: 'error', message: 'תקלה בשרת, נסו שוב או צרו קשר עם רזי' });
         }
       } else {
-        const { resetForm } = formikProps;
         try {
           await onSubmit(values);
           addNotification({ type: 'success', message: 'משתמש נערך בהצלחה' });
